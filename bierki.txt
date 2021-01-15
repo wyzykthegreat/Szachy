@@ -1,0 +1,15 @@
+# 1000 8 białe                          # 10000 16 czarne
+
+# 010 2 Pionek-                         # 001 1 Pionek+
+# 011 3 król                            # 011 3 król
+# 100 4 koń                             # 100 4 koń
+# 101 5 goniec                          # 101 5 goniec
+# 110 6 wieża                           # 110 6 wieża
+# 111 7 hetman                          # 111 7 hetman
+
+# 1000 | 001 = 1001 9  biały Pionek     # 10000 | 001 = 10001 18 czarny Pionek
+# 1000 | 011 = 1011 11 biały król       # 10000 | 011 = 10011 19 czarny król
+# 1000 | 100 = 1100 12 biały koń        # 10000 | 100 = 10100 20 czarny koń
+# 1000 | 101 = 1101 13 biały goniec     # 10000 | 101 = 10101 21 czarny goniec
+# 1000 | 110 = 1110 14 biała wieża      # 10000 | 110 = 10110 22 czarna wieża
+# 1000 | 111 = 1111 15 biały hetman     # 10000 | 111 = 10111 23 czarny hetman
