@@ -23,37 +23,39 @@ int PrzypiszBierke(int Zrodlowy_Kw){
 
 void bialy_pionek(int Strona_bp, int Zrodlowy_Kw_bp, int Zbita_Bierka_bp, int Docelowy_Kw_bp, int Kierunek_bp){
     
- if(Zbita_Bierka_bp & 16){  //jesli pole na ktore ma sie ruszyc po skosie jest czarnym pionkiem
-    printf("%s%s  ", notacja[Zrodlowy_Kw_bp], notacja[Docelowy_Kw_bp]);   //napisz ze mozliwy ruch na to pole
-                                }
-    Docelowy_Kw_bp -= 2;       //zmien docelowe pole na to drugie po skosie
-    Zbita_Bierka_bp = PrzypiszBierke(Docelowy_Kw_bp); //zaktualizuj informacje o bierce na tym polu
-        if(Zbita_Bierka_bp & 16){              //jesli pole na ktore ma sie ruszyc po skosie jest czarnym pionkiem
+    if(Zbita_Bierka_bp & 16){                           //jesli pole na ktore ma sie ruszyc po skosie jest czarnym pionkiem
+        printf("%s%s  ", notacja[Zrodlowy_Kw_bp], notacja[Docelowy_Kw_bp]);   //napisz ze mozliwy ruch na to pole
+        }
+        Docelowy_Kw_bp -= 2;                                            //zmien docelowe pole na to drugie po skosie
+        Zbita_Bierka_bp = PrzypiszBierke(Docelowy_Kw_bp);               //zaktualizuj informacje o bierce na tym polu
+        
+        if(Zbita_Bierka_bp & 16){                   //jesli pole na ktore ma sie ruszyc po skosie jest czarnym pionkiem
             printf("%s%s  ", notacja[Zrodlowy_Kw_bp], notacja[Docelowy_Kw_bp]);   //napisz ze mozliwy ruch na to pole
         }
-        Kierunek_bp++;             //Zmien na kolejny ruch
-            Docelowy_Kw_bp = Zrodlowy_Kw_bp + ListaRuchow[Kierunek_bp];  //Zmien docelowe pole na ktore ma sie ruszyc pionek
-            Zbita_Bierka_bp = PrzypiszBierke(Docelowy_Kw_bp);                //Zaktualizuj info o bierce na tym polu
-                if((!(Zbita_Bierka_bp & 8)) && (!(Zbita_Bierka_bp & 16))){
-                    printf("%s%s  ", notacja[Zrodlowy_Kw_bp], notacja[Docelowy_Kw_bp]);   //napisz ze mozliwy ruch na to pole
-                    Kierunek_bp++;
-                    Docelowy_Kw_bp = Zrodlowy_Kw_bp + ListaRuchow[Kierunek_bp];
-                    Zbita_Bierka_bp = PrzypiszBierke(Docelowy_Kw_bp); 
-                        if(((Zrodlowy_Kw_bp>=96) && (Zrodlowy_Kw_bp<=104)) && ((!(Zbita_Bierka_bp & Strona_bp)) && (!(Zbita_Bierka_bp & 16)))){
-                            printf("%s%s  ", notacja[Zrodlowy_Kw_bp], notacja[Docelowy_Kw_bp]);
-                                    
-                        }
-                }
-    }   
+        Kierunek_bp++;                                                              //Zmien na kolejny ruch
+        Docelowy_Kw_bp = Zrodlowy_Kw_bp + ListaRuchow[Kierunek_bp];  //Zmien docelowe pole na ktore ma sie ruszyc pionek
+        Zbita_Bierka_bp = PrzypiszBierke(Docelowy_Kw_bp);           //Zaktualizuj info o bierce na tym polu
+                       
+        if((!(Zbita_Bierka_bp & 8)) && (!(Zbita_Bierka_bp & 16))){
+            printf("%s%s  ", notacja[Zrodlowy_Kw_bp], notacja[Docelowy_Kw_bp]);   //napisz ze mozliwy ruch na to pole
+            Kierunek_bp++;
+            Docelowy_Kw_bp = Zrodlowy_Kw_bp + ListaRuchow[Kierunek_bp];
+            Zbita_Bierka_bp = PrzypiszBierke(Docelowy_Kw_bp);
+
+            if(((Zrodlowy_Kw_bp>=96) && (Zrodlowy_Kw_bp<=104)) && ((!(Zbita_Bierka_bp & Strona_bp)) && (!(Zbita_Bierka_bp & 16)))){
+                printf("%s%s  ", notacja[Zrodlowy_Kw_bp], notacja[Docelowy_Kw_bp]);
+            }
+        }
+}   
 
 void hetman_goniec_wieza(int Strona_hgw, int Zrodlowy_Kw_hgw, int Zbita_Bierka_hgw, int Docelowy_Kw_hgw, int Kierunek_hgw){
-while((Zbita_Bierka_hgw == 0) && (!(Docelowy_Kw_hgw & 0x88))){
-                                    printf("%s%s  ", notacja[Zrodlowy_Kw_hgw], notacja[Docelowy_Kw_hgw]);
-                                    Docelowy_Kw_hgw += ListaRuchow[Kierunek_hgw];
-                                    Zbita_Bierka_hgw = Plansza[Docelowy_Kw_hgw];
-                                }
-                                if((!(Zbita_Bierka_hgw & Strona_hgw)) && (!(Docelowy_Kw_hgw & 0x88)))
-                                printf("%s%s  ", notacja[Zrodlowy_Kw_hgw], notacja[Docelowy_Kw_hgw]);
+    while((Zbita_Bierka_hgw == 0) && (!(Docelowy_Kw_hgw & 0x88))){
+        printf("%s%s  ", notacja[Zrodlowy_Kw_hgw], notacja[Docelowy_Kw_hgw]);
+        Docelowy_Kw_hgw += ListaRuchow[Kierunek_hgw];
+        Zbita_Bierka_hgw = Plansza[Docelowy_Kw_hgw];
+        }
+    if((!(Zbita_Bierka_hgw & Strona_hgw)) && (!(Docelowy_Kw_hgw & 0x88)))
+        printf("%s%s  ", notacja[Zrodlowy_Kw_hgw], notacja[Docelowy_Kw_hgw]);
 }
 
 void MozliweRuchy(int Strona){
