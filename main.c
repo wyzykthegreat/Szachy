@@ -8,95 +8,100 @@ void WypiszPlansze(){
     for(int Pole = 0; Pole < 128; Pole++){
         if(!(Pole % 16)){
             printf(" %d. ", 8 - ( Pole / 16 ));
-            printf(" %c", ((Pole & 8) && (Pole +=7)) ? '\n' : Bierki[Plansza[Pole] & 15]);
         }
+        printf(" %c", ((Pole & 8) && (Pole +=7)) ? '\n' : Bierki[Plansza[Pole] & 15]);
     }
     printf("\n     a b c d e f g h\n\nTwoj ruch: \n");
 }
 
-int PrzypiszBierke(int Zrodlowy_Kw){
-    int Bierka;
-    Bierka = Plansza[Zrodlowy_Kw];
+int PrzypiszBierke(int KwadratZKtoregoRuszaPionek){
+    int BierkaJakaZnajdujeSieNaPolu;
+    BierkaJakaZnajdujeSieNaPolu = Plansza[KwadratZKtoregoRuszaPionek];
 
-    return Bierka;
+    return BierkaJakaZnajdujeSieNaPolu;
 }
 
-void bialy_pionek(int Strona_bp, int Zrodlowy_Kw_bp, int Zbita_Bierka_bp, int Docelowy_Kw_bp, int Kierunek_bp){
+int bialy_pionek(int Strona_bp, int KwadratZKtoregoRuszaPionek_bp, int ZbitaBierka_bp, int KwadratNaKtoryRuszaSieBierka_bp, int Kierunek_bp){
     
-    if(Zbita_Bierka_bp & 16){                           //jesli pole na ktore ma sie ruszyc po skosie jest czarnym pionkiem
-        printf("%s%s  ", notacja[Zrodlowy_Kw_bp], notacja[Docelowy_Kw_bp]);   //napisz ze mozliwy ruch na to pole
+    if(ZbitaBierka_bp & 16){                           //jesli pole na ktore ma sie ruszyc po skosie jest czarnym pionkiem
+        printf("%s%s  ", notacja[KwadratZKtoregoRuszaPionek_bp], notacja[KwadratNaKtoryRuszaSieBierka_bp]);   //napisz ze mozliwy ruch na to pole
         }
-        Docelowy_Kw_bp -= 2;                                            //zmien docelowe pole na to drugie po skosie
-        Zbita_Bierka_bp = PrzypiszBierke(Docelowy_Kw_bp);               //zaktualizuj informacje o bierce na tym polu
+    else
+    KwadratNaKtoryRuszaSieBierka_bp -= 2;                                            //zmien docelowe pole na to drugie po skosie
+    ZbitaBierka_bp = PrzypiszBierke(KwadratNaKtoryRuszaSieBierka_bp);               //zaktualizuj informacje o bierce na tym polu
         
-        if(Zbita_Bierka_bp & 16){                   //jesli pole na ktore ma sie ruszyc po skosie jest czarnym pionkiem
-            printf("%s%s  ", notacja[Zrodlowy_Kw_bp], notacja[Docelowy_Kw_bp]);   //napisz ze mozliwy ruch na to pole
+        if(ZbitaBierka_bp & 16){                   //jesli pole na ktore ma sie ruszyc po skosie jest czarnym pionkiem
+            printf("%s%s  ", notacja[KwadratZKtoregoRuszaPionek_bp], notacja[KwadratNaKtoryRuszaSieBierka_bp]);   //napisz ze mozliwy ruch na to pole
         }
+    else
         Kierunek_bp++;                                                              //Zmien na kolejny ruch
-        Docelowy_Kw_bp = Zrodlowy_Kw_bp + ListaRuchow[Kierunek_bp];  //Zmien docelowe pole na ktore ma sie ruszyc pionek
-        Zbita_Bierka_bp = PrzypiszBierke(Docelowy_Kw_bp);           //Zaktualizuj info o bierce na tym polu
+        KwadratNaKtoryRuszaSieBierka_bp = KwadratZKtoregoRuszaPionek_bp + ListaRuchow[Kierunek_bp];  //Zmien docelowe pole na ktore ma sie ruszyc pionek
+        ZbitaBierka_bp = PrzypiszBierke(KwadratNaKtoryRuszaSieBierka_bp);           //Zaktualizuj info o bierce na tym polu
                        
-        if((!(Zbita_Bierka_bp & 8)) && (!(Zbita_Bierka_bp & 16))){
-            printf("%s%s  ", notacja[Zrodlowy_Kw_bp], notacja[Docelowy_Kw_bp]);   //napisz ze mozliwy ruch na to pole
+        if((!(ZbitaBierka_bp & 8)) && (!(ZbitaBierka_bp & 16))){
+            printf("%s%s  ", notacja[KwadratZKtoregoRuszaPionek_bp], notacja[KwadratNaKtoryRuszaSieBierka_bp]);   //napisz ze mozliwy ruch na to pole
             Kierunek_bp++;
-            Docelowy_Kw_bp = Zrodlowy_Kw_bp + ListaRuchow[Kierunek_bp];
-            Zbita_Bierka_bp = PrzypiszBierke(Docelowy_Kw_bp);
+            KwadratNaKtoryRuszaSieBierka_bp = KwadratZKtoregoRuszaPionek_bp + ListaRuchow[Kierunek_bp];
+            ZbitaBierka_bp = PrzypiszBierke(KwadratNaKtoryRuszaSieBierka_bp);
 
-            if(((Zrodlowy_Kw_bp>=96) && (Zrodlowy_Kw_bp<=104)) && ((!(Zbita_Bierka_bp & Strona_bp)) && (!(Zbita_Bierka_bp & 16)))){
-                printf("%s%s  ", notacja[Zrodlowy_Kw_bp], notacja[Docelowy_Kw_bp]);
+            if(((KwadratZKtoregoRuszaPionek_bp>=96) && (KwadratZKtoregoRuszaPionek_bp<=104)) && ((!(ZbitaBierka_bp & Strona_bp)) && (!(ZbitaBierka_bp & 16)))){
+                printf("%s%s  ", notacja[KwadratZKtoregoRuszaPionek_bp], notacja[KwadratNaKtoryRuszaSieBierka_bp]);
             }
         }
+        if(ListaRuchow[Kierunek_bp]==16)
+        Kierunek_bp++;
+    return Kierunek_bp;
 }   
 
-void hetman_goniec_wieza(int Strona_hgw, int Zrodlowy_Kw_hgw, int Zbita_Bierka_hgw, int Docelowy_Kw_hgw, int Kierunek_hgw){
-    while((Zbita_Bierka_hgw == 0) && (!(Docelowy_Kw_hgw & 0x88))){
-        printf("%s%s  ", notacja[Zrodlowy_Kw_hgw], notacja[Docelowy_Kw_hgw]);
-        Docelowy_Kw_hgw += ListaRuchow[Kierunek_hgw];
-        Zbita_Bierka_hgw = Plansza[Docelowy_Kw_hgw];
+void hetman_goniec_wieza(int Strona_hgw, int KwadratZKtoregoRuszaPionek_hgw, int ZbitaBierka_hgw, int KwadratNaKtoryRuszaSieBierka_hgw, int Kierunek_hgw){
+    while((ZbitaBierka_hgw == 0) && (!(KwadratNaKtoryRuszaSieBierka_hgw & 0x88))){
+        printf("%s%s  ", notacja[KwadratZKtoregoRuszaPionek_hgw], notacja[KwadratNaKtoryRuszaSieBierka_hgw]);
+        KwadratNaKtoryRuszaSieBierka_hgw += ListaRuchow[Kierunek_hgw];
+        ZbitaBierka_hgw = Plansza[KwadratNaKtoryRuszaSieBierka_hgw];
         }
-    if((!(Zbita_Bierka_hgw & Strona_hgw)) && (!(Docelowy_Kw_hgw & 0x88)))
-        printf("%s%s  ", notacja[Zrodlowy_Kw_hgw], notacja[Docelowy_Kw_hgw]);
+    if((!(ZbitaBierka_hgw & Strona_hgw)) && (!(KwadratNaKtoryRuszaSieBierka_hgw & 0x88)))
+        printf("%s%s  ", notacja[KwadratZKtoregoRuszaPionek_hgw], notacja[KwadratNaKtoryRuszaSieBierka_hgw]);
 }
 
-void MozliweRuchy(int Strona){
-    int Bierka, Rodzaj, Kierunek, Docelowy_Kw, Zbity_Kw, Zbita_Bierka, Przejscie;
+void MozliweRuchy(int GraczKtoregoJestRuch){
+    int BierkaJakaZnajdujeSieNaPolu, RodzajPionkaBezWzgleduNaKolor, RuchWykonywanyPrzezPionek, KwadratNaKtoryRuszaSieBierka, Zbity_Kw, ZbitaBierka, Przejscie;
 
     printf("Mozliwe ruchy to:\n");
         
-    for(int Zrodlowy_Kw = 0; Zrodlowy_Kw < 128; Zrodlowy_Kw++){
-        if(!(Zrodlowy_Kw & 0x88)){
-            Bierka = PrzypiszBierke(Zrodlowy_Kw);
+    for(int KwadratZKtoregoRuszaPionek = 0; KwadratZKtoregoRuszaPionek < 128; KwadratZKtoregoRuszaPionek++){
+        if(!(KwadratZKtoregoRuszaPionek & 0x88)){
+            BierkaJakaZnajdujeSieNaPolu = PrzypiszBierke(KwadratZKtoregoRuszaPionek);
 
-            if(Bierka & Strona){
+            if(BierkaJakaZnajdujeSieNaPolu & GraczKtoregoJestRuch){
 
-                Rodzaj = Bierka & 7;
-                Kierunek = ListaRuchow[Rodzaj+30];
-                //printf(" %s", notacja[Zrodlowy_Kw]);
-                Docelowy_Kw = Zrodlowy_Kw;
-                while(ListaRuchow[++Kierunek] != 0){
-                    Docelowy_Kw = Zrodlowy_Kw + ListaRuchow[Kierunek];
-                    if(!(Docelowy_Kw & 0x88)){
-                        Zbita_Bierka = PrzypiszBierke(Docelowy_Kw);
-                        if(!(Zbita_Bierka & Strona)){   //Do tego momentu program skanuje kazde pole w poszukiwaniu bierek
-                                                        // z danego koloru i wypisuje pierwsze wolne pola na ktore moze sie ruszyc bierka
-                            if(Bierka == 9){            //jesli bierka to bialy pionek
+                RodzajPionkaBezWzgleduNaKolor = BierkaJakaZnajdujeSieNaPolu & 7;
+                RuchWykonywanyPrzezPionek = ListaRuchow[RodzajPionkaBezWzgleduNaKolor+30];
+                //printf(" %s", notacja[KwadratZKtoregoRuszaPionek]);
+                KwadratNaKtoryRuszaSieBierka = KwadratZKtoregoRuszaPionek;
+                while(ListaRuchow[++RuchWykonywanyPrzezPionek] != 0){
+                    KwadratNaKtoryRuszaSieBierka = KwadratZKtoregoRuszaPionek + ListaRuchow[RuchWykonywanyPrzezPionek];
+                    if(!(KwadratNaKtoryRuszaSieBierka & 0x88)){
+                        ZbitaBierka = PrzypiszBierke(KwadratNaKtoryRuszaSieBierka);
+                        if(!(ZbitaBierka & GraczKtoregoJestRuch)){   //Do tego momentu program skanuje kazde pole w poszukiwaniu bierek
+                                                        // z danego koloru i wypisuje pierwsze wolne pola na ktore moze sie ruszyc bierkaJakaZnajdujeSieNaPolu
+                            if(BierkaJakaZnajdujeSieNaPolu == 9){            //jesli bierkaJakaZnajdujeSieNaPolu to bialy pionek
 
-                                bialy_pionek(Strona, Zrodlowy_Kw, Zbita_Bierka, Docelowy_Kw, Kierunek);
+                                RuchWykonywanyPrzezPionek = bialy_pionek(GraczKtoregoJestRuch, KwadratZKtoregoRuszaPionek, ZbitaBierka, KwadratNaKtoryRuszaSieBierka, RuchWykonywanyPrzezPionek);
                             }
-                            // else if(Bierka ==18){
+                            // else if(BierkaJakaZnajdujeSieNaPolu ==18){
 
                             // }
-                            else if((Rodzaj == 3) || (Rodzaj == 4)){
-                                printf("%s%s  ", notacja[Zrodlowy_Kw], notacja[Docelowy_Kw]);
+                            else if((RodzajPionkaBezWzgleduNaKolor == 3) || (RodzajPionkaBezWzgleduNaKolor == 4)){
+                                printf("%s%s  ", notacja[KwadratZKtoregoRuszaPionek], notacja[KwadratNaKtoryRuszaSieBierka]);
                             }
                             
-                            else if((Rodzaj >= 5) || (Rodzaj <= 7)){
-                                hetman_goniec_wieza(Strona, Zrodlowy_Kw, Zbita_Bierka, Docelowy_Kw, Kierunek);
+                            else if((RodzajPionkaBezWzgleduNaKolor >= 5) || (RodzajPionkaBezWzgleduNaKolor <= 7)){
+                                hetman_goniec_wieza(GraczKtoregoJestRuch, KwadratZKtoregoRuszaPionek, ZbitaBierka, KwadratNaKtoryRuszaSieBierka, RuchWykonywanyPrzezPionek);
                             }
                         }
-                        //printf("%s%s   ", notacja[Zrodlowy_Kw], notacja[Docelowy_Kw]);
+                        //printf("%s%s   ", notacja[KwadratZKtoregoRuszaPionek], notacja[KwadratNaKtoryRuszaSieBierka]);
                     }
-                    //printf("%s%s   ", notacja[Zrodlowy_Kw], notacja[Docelowy_Kw]);
+                    //printf("%s%s   ", notacja[KwadratZKtoregoRuszaPionek], notacja[KwadratNaKtoryRuszaSieBierka]);
                     
                 }
                 //printf("\n");
@@ -112,18 +117,18 @@ void MozliweRuchy(int Strona){
 //         return 0;
 //     }
 //     else{
-//         int Bierka, Rodzaj, Kierunek, Docelowy_Kw, Zbity_Kw, Zbita_Bierka, Przejscie;
-//         for(int Zrodlowy_Kw = 0; Zrodlowy_Kw < 120; Zrodlowy_Kw++){
-//             if(Zrodlowy_Kw & 7){
-//                 (Zrodlowy_Kw+=8);
+//         int BierkaJakaZnajdujeSieNaPolu, RodzajPionkaBezWzgleduNaKolor, RuchWykonywanyPrzezPionek, KwadratNaKtoryRuszaSieBierka, Zbity_Kw, ZbitaBierka, Przejscie;
+//         for(int KwadratZKtoregoRuszaPionek = 0; KwadratZKtoregoRuszaPionek < 120; KwadratZKtoregoRuszaPionek++){
+//             if(KwadratZKtoregoRuszaPionek & 7){
+//                 (KwadratZKtoregoRuszaPionek+=8);
 //             }
 
-//             Bierka = Plansza[Zrodlowy_Kw];
-//             if(Bierka & Ruch){
-//                 Rodzaj = Bierka & 7;
-//                 Kierunek = ListaRuchow[Rodzaj+30];
+//             BierkaJakaZnajdujeSieNaPolu = Plansza[KwadratZKtoregoRuszaPionek];
+//             if(BierkaJakaZnajdujeSieNaPolu & Ruch){
+//                 RodzajPionkaBezWzgleduNaKolor = BierkaJakaZnajdujeSieNaPolu & 7;
+//                 RuchWykonywanyPrzezPionek = ListaRuchow[RodzajPionkaBezWzgleduNaKolor+30];
 
-//                 while(Przejscie = ListaRuchow[++Kierunek]){
+//                 while(Przejscie = ListaRuchow[++RuchWykonywanyPrzezPionek]){
                     
 //                 }
 //             }
@@ -138,7 +143,7 @@ void MozliweRuchy(int Strona){
 int main(){
     WypiszPlansze();
     //SzukajRuchu(1, 1);
-    //MozliweRuchy(bialy);
+    MozliweRuchy(8);
 
     return 0;
 }
