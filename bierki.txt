@@ -1,6 +1,6 @@
 # 1000 8 białe                          # 10000 16 czarne
 
-# 010 2 Pionek-                         # 001 1 Pionek+
+# 001 1 Pionek-                         # 010 2 Pionek+
 # 011 3 król                            # 011 3 król
 # 100 4 koń                             # 100 4 koń
 # 101 5 goniec                          # 101 5 goniec
