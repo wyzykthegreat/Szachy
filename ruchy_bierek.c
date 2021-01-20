@@ -12,7 +12,8 @@ void ZrobListeRuchow(int KwadratZKtoregoRuszaSieBierka_zlr, int KwadratNaKtoryRu
     strcpy(NazwaRuchu1_zlr, notacja[KwadratZKtoregoRuszaSieBierka_zlr]);
     strcpy(NazwaRuchu2_zlr, notacja[KwadratNaKtoryRuszaSieBierka_zlr]);
     strcat(NazwaRuchu1_zlr, NazwaRuchu2_zlr);
-    WpiszNaListe(RuchDoPrzypisania_zlr, NazwaRuchu1_zlr);
+    printf("%s\n", NazwaRuchu1_zlr);
+    //WpiszNaListe(RuchDoPrzypisania_zlr, NazwaRuchu1_zlr);
 }
 
 void WypiszPlansze(){
@@ -41,25 +42,23 @@ void bialy_pionek(int KwadratZKtoregoRuszaPionek_bp){
     ZbitaBierka_bp = Plansza[KwadratNaKtoryRuszaPionek_bp];
     
     if((ZbitaBierka_bp & 16) && (!(KwadratNaKtoryRuszaPionek_bp & 0x88))){
-        printf("%s%s\n", notacja[KwadratZKtoregoRuszaPionek_bp], notacja[KwadratNaKtoryRuszaPionek_bp]);
+        ZrobListeRuchow(KwadratZKtoregoRuszaPionek_bp, KwadratNaKtoryRuszaPionek_bp);
     }
     KwadratNaKtoryRuszaPionek_bp = KwadratNaKtoryRuszaPionek_bp -2;
     ZbitaBierka_bp = Plansza[KwadratNaKtoryRuszaPionek_bp];
     if((ZbitaBierka_bp & 16) && (!(KwadratNaKtoryRuszaPionek_bp & 0x88))){
-        printf("%s%s\n", notacja[KwadratZKtoregoRuszaPionek_bp], notacja[KwadratNaKtoryRuszaPionek_bp]);
+        ZrobListeRuchow(KwadratZKtoregoRuszaPionek_bp, KwadratNaKtoryRuszaPionek_bp);
     }
     Kierunek_bp++;
     KwadratNaKtoryRuszaPionek_bp = KwadratZKtoregoRuszaPionek_bp + ListaRuchow[Kierunek_bp];
     ZbitaBierka_bp = Plansza[KwadratNaKtoryRuszaPionek_bp];
     if(((!(ZbitaBierka_bp & 16)) && (!(ZbitaBierka_bp & 8)))){
-        printf("%s%s\n", notacja[KwadratZKtoregoRuszaPionek_bp], notacja[KwadratNaKtoryRuszaPionek_bp]);
-        if((KwadratZKtoregoRuszaPionek_bp >= 96) && (KwadratZKtoregoRuszaPionek_bp <= 103)){
+        ZrobListeRuchow(KwadratZKtoregoRuszaPionek_bp, KwadratNaKtoryRuszaPionek_bp);        if((KwadratZKtoregoRuszaPionek_bp >= 96) && (KwadratZKtoregoRuszaPionek_bp <= 103)){
             Kierunek_bp++;
             KwadratNaKtoryRuszaPionek_bp = KwadratZKtoregoRuszaPionek_bp + ListaRuchow[Kierunek_bp];
             ZbitaBierka_bp = Plansza[KwadratNaKtoryRuszaPionek_bp];
             if((!(ZbitaBierka_bp & 16)) && (!(ZbitaBierka_bp & 8))){
-                printf("%s%s\n", notacja[KwadratZKtoregoRuszaPionek_bp], notacja[KwadratNaKtoryRuszaPionek_bp]);
-            }
+                ZrobListeRuchow(KwadratZKtoregoRuszaPionek_bp, KwadratNaKtoryRuszaPionek_bp);            }
         }
     }
 }
@@ -73,24 +72,21 @@ void czarny_pionek(int KwadratZKtoregoRuszaPionek_cp){
     ZbitaBierka_cp = Plansza[KwadratNaKtoryRuszaPionek_cp];
     
     if((ZbitaBierka_cp & 8) && (!(KwadratNaKtoryRuszaPionek_cp & 0x88))){
-        printf("%s%s\n", notacja[KwadratZKtoregoRuszaPionek_cp], notacja[KwadratNaKtoryRuszaPionek_cp]);
-    }
+        ZrobListeRuchow(KwadratZKtoregoRuszaPionek_cp, KwadratNaKtoryRuszaPionek_cp);    }
     KwadratNaKtoryRuszaPionek_cp = KwadratNaKtoryRuszaPionek_cp +2;
     ZbitaBierka_cp = Plansza[KwadratNaKtoryRuszaPionek_cp];
     if((ZbitaBierka_cp & 8) && (!(KwadratNaKtoryRuszaPionek_cp & 0x88))){
-        printf("%s%s\n", notacja[KwadratZKtoregoRuszaPionek_cp], notacja[KwadratNaKtoryRuszaPionek_cp]);
-    }
+        ZrobListeRuchow(KwadratZKtoregoRuszaPionek_cp, KwadratNaKtoryRuszaPionek_cp);    }
     Kierunek_cp++;
     KwadratNaKtoryRuszaPionek_cp = KwadratZKtoregoRuszaPionek_cp + ListaRuchow[Kierunek_cp];
     ZbitaBierka_cp = Plansza[KwadratNaKtoryRuszaPionek_cp];
     if((!(ZbitaBierka_cp & 16)) && (!(ZbitaBierka_cp & 8))){
-        printf("%s%s\n", notacja[KwadratZKtoregoRuszaPionek_cp], notacja[KwadratNaKtoryRuszaPionek_cp]);
-        if((KwadratZKtoregoRuszaPionek_cp >= 16) && (KwadratZKtoregoRuszaPionek_cp <= 23)){
+        ZrobListeRuchow(KwadratZKtoregoRuszaPionek_cp, KwadratNaKtoryRuszaPionek_cp);        if((KwadratZKtoregoRuszaPionek_cp >= 16) && (KwadratZKtoregoRuszaPionek_cp <= 23)){
             Kierunek_cp++;
             KwadratNaKtoryRuszaPionek_cp = KwadratZKtoregoRuszaPionek_cp + ListaRuchow[Kierunek_cp];
             ZbitaBierka_cp = Plansza[KwadratNaKtoryRuszaPionek_cp];
             if((!(ZbitaBierka_cp & 16)) && (!(ZbitaBierka_cp & 8))){
-                printf("%s%s\n", notacja[KwadratZKtoregoRuszaPionek_cp], notacja[KwadratNaKtoryRuszaPionek_cp]);
+                ZrobListeRuchow(KwadratZKtoregoRuszaPionek_cp, KwadratNaKtoryRuszaPionek_cp); printf("%s%s\n", notacja[KwadratZKtoregoRuszaPionek_cp], notacja[KwadratNaKtoryRuszaPionek_cp]);
             }
         }
     }
@@ -105,13 +101,12 @@ void hetman_goniec_wieza(int Strona_hgw, int KwadratZKtoregoRuszaSieBierka_hgw, 
         KwadratNaKtoryRuszaSieBierka_hgw = KwadratZKtoregoRuszaSieBierka_hgw + ListaRuchow[Kierunek_hgw];
         ZbitaBierka_hgw = Plansza [KwadratNaKtoryRuszaSieBierka_hgw];
         while((ZbitaBierka_hgw == 0) && (!(KwadratNaKtoryRuszaSieBierka_hgw & 0x88))){
-            printf("%s%s\n", notacja[KwadratZKtoregoRuszaSieBierka_hgw], notacja[KwadratNaKtoryRuszaSieBierka_hgw]);
+            ZrobListeRuchow(KwadratZKtoregoRuszaSieBierka_hgw, KwadratNaKtoryRuszaSieBierka_hgw); 
             KwadratNaKtoryRuszaSieBierka_hgw += ListaRuchow[Kierunek_hgw];
             ZbitaBierka_hgw = Plansza[KwadratNaKtoryRuszaSieBierka_hgw];
         }
         if((!(ZbitaBierka_hgw & Strona_hgw)) && (!(KwadratNaKtoryRuszaSieBierka_hgw & 0x88))){
-            printf("%s%s\n", notacja[KwadratZKtoregoRuszaSieBierka_hgw], notacja[KwadratNaKtoryRuszaSieBierka_hgw]);
-        }
+            ZrobListeRuchow(KwadratZKtoregoRuszaSieBierka_hgw, KwadratNaKtoryRuszaSieBierka_hgw);        }
     }
 }
 
@@ -125,8 +120,7 @@ void krol_kon(int Strona_kk, int KwadratZKtoregoRuszaSieBierka_kk, int RodzajBie
         KwadratNaKtoryRuszaSieBierka_kk = KwadratZKtoregoRuszaSieBierka_kk + ListaRuchow[Kierunek_kk];
         ZbitaBierka_kk = Plansza[KwadratNaKtoryRuszaSieBierka_kk];
         if((!(ZbitaBierka_kk & Strona_kk)) && (!(KwadratNaKtoryRuszaSieBierka_kk & 0x88)))
-        printf("%s%s\n", notacja[KwadratZKtoregoRuszaSieBierka_kk], notacja[KwadratNaKtoryRuszaSieBierka_kk]);
-    }
+            ZrobListeRuchow(KwadratZKtoregoRuszaSieBierka_kk, KwadratNaKtoryRuszaSieBierka_kk);    }
 }
 
 void MozliweRuchy(int GraczKtoregoJestRuch){
