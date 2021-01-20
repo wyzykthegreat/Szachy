@@ -9,7 +9,7 @@ void WypiszPlansze(){
         if(!(Pole % 16)){
             printf(" %d. ", 8 - ( Pole / 16 ));
         }
-        printf(" %c", ((Pole & 8) && (Pole +=7)) ? '\n' : Bierki[Plansza[Pole] & 15]);
+        printf(" %s", ((Pole & 8) && (Pole +=7)) ? "\n" : Bierki[Plansza[Pole] & 15]);
     }
     printf("\n     a b c d e f g h\n\nTwoj ruch: \n");
 }
@@ -40,7 +40,7 @@ void bialy_pionek(int KwadratZKtoregoRuszaPionek_bp){
     Kierunek_bp++;
     KwadratNaKtoryRuszaPionek_bp = KwadratZKtoregoRuszaPionek_bp + ListaRuchow[Kierunek_bp];
     ZbitaBierka_bp = Plansza[KwadratNaKtoryRuszaPionek_bp];
-    if((!(ZbitaBierka_bp & 16)) && (!(ZbitaBierka_bp & 8))){
+    if(((!(ZbitaBierka_bp & 16)) && (!(ZbitaBierka_bp & 8)))){
         printf("%s%s\n", notacja[KwadratZKtoregoRuszaPionek_bp], notacja[KwadratNaKtoryRuszaPionek_bp]);
         if((KwadratZKtoregoRuszaPionek_bp >= 96) && (KwadratZKtoregoRuszaPionek_bp <= 103)){
             Kierunek_bp++;
@@ -125,7 +125,7 @@ void MozliweRuchy(int GraczKtoregoJestRuch){
         
     for(int KwadratZKtoregoRuszaPionek = 0; KwadratZKtoregoRuszaPionek < 128; KwadratZKtoregoRuszaPionek++){
         if(!(KwadratZKtoregoRuszaPionek & 0x88)){
-            BierkaJakaZnajdujeSieNaPolu = PrzypiszBierke(KwadratZKtoregoRuszaPionek);
+            BierkaJakaZnajdujeSieNaPolu = Plansza[KwadratZKtoregoRuszaPionek];
 
             if(BierkaJakaZnajdujeSieNaPolu & GraczKtoregoJestRuch){
 
@@ -148,31 +148,7 @@ void MozliweRuchy(int GraczKtoregoJestRuch){
     }
 }
 
-// int SzukajRuchu(int Ruch, int glebokosc){
-//     if(glebokosc == 0){
-//         return 0;
-//     }
-//     else{
-//         int BierkaJakaZnajdujeSieNaPolu, RodzajPionkaBezWzgleduNaKolor, RuchWykonywanyPrzezPionek, KwadratNaKtoryRuszaSieBierka, Zbity_Kw, ZbitaBierka, Przejscie;
-//         for(int KwadratZKtoregoRuszaPionek = 0; KwadratZKtoregoRuszaPionek < 120; KwadratZKtoregoRuszaPionek++){
-//             if(KwadratZKtoregoRuszaPionek & 7){
-//                 (KwadratZKtoregoRuszaPionek+=8);
-//             }
 
-//             BierkaJakaZnajdujeSieNaPolu = Plansza[KwadratZKtoregoRuszaPionek];
-//             if(BierkaJakaZnajdujeSieNaPolu & Ruch){
-//                 RodzajPionkaBezWzgleduNaKolor = BierkaJakaZnajdujeSieNaPolu & 7;
-//                 RuchWykonywanyPrzezPionek = ListaRuchow[RodzajPionkaBezWzgleduNaKolor+30];
-
-//                 while(Przejscie = ListaRuchow[++RuchWykonywanyPrzezPionek]){
-                    
-//                 }
-//             }
-
-//         }
-        
-//     }
-// }
           
 
 

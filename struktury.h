@@ -8,7 +8,7 @@ static int ListaRuchow[] = {
         1,  16,  -1, -16,   0,                      // operacje wykorzystywane do ruchu wiez
         1,  16,  -1, -16,  15, -15, 17, -17,  0,    // operacje wykorzystywane do ruchu dam, krolow i goncow
        14, -14,  18, -18,  31, -31, 33, -33,  0,    // operacje wykorzystywane do ruchu koni
-        3,  -1,  12,  21,  16,   7, 12              //opisane kolejno poczatki mozliwych ruchow do wykonania przez poszczegolne figury
+        -1,  3,  12,  21,  16,   7, 12              //opisane kolejno poczatki mozliwych ruchow do wykonania przez poszczegolne figury
     };
 
 int Plansza[128] = {                
@@ -39,7 +39,14 @@ char *notacja[] = {
 
 // enum { bialy = 8, czarny = 16};
 
-char Bierki[] = ".-pknbrq-P-KNBRQ";
+char *Bierki[] = {                      // print unicode characters to represent pieces on board
+
+	".", "-", "\u265F", "\u265A", "\u265E", "\u265D", "\u265C", "\u265B", 
+	"-", "\u2659", "-", "\u2654", "\u2658", "\u2657", "\u2656", "\u2655",  
+
+};
+
+
 
 #endif
 
