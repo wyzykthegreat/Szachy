@@ -5,8 +5,6 @@
 #include "struktury.h"
 
 void ZrobListeRuchow(int KwadratZKtoregoRuszaSieBierka_zlr, int KwadratNaKtoryRuszaSieBierka_zlr){
-    int RuchDoPrzypisania_zlr;
-    RuchDoPrzypisania_zlr = KwadratNaKtoryRuszaSieBierka_zlr - KwadratZKtoregoRuszaSieBierka_zlr;
     char NazwaRuchu1_zlr[5];
     char NazwaRuchu2_zlr[3];
     strcpy(NazwaRuchu1_zlr, notacja[KwadratZKtoregoRuszaSieBierka_zlr]);
