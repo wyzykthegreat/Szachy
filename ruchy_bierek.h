@@ -27,14 +27,14 @@ void WypiszPlansze(szachownica *sz_wp);
 
 int PrzypiszBierke(int KwadratZKtoregoRuszaPionek, szachownica *sz_pb);
 
-ruchy * bialy_pionek(int KwadratZKtoregoRuszaPionek_bp, ruchy *glowa_bp);
+ruchy * bialy_pionek(int KwadratZKtoregoRuszaPionek_bp, ruchy *glowa_bp, szachownica *sz_bp);
 
-ruchy * czarny_pionek(int KwadratZKtoregoRuszaPionek_bp, ruchy *glowa_cp);
+ruchy * czarny_pionek(int KwadratZKtoregoRuszaPionek_bp, ruchy *glowa_cp, szachownica *sz_cp);
 
-ruchy * hetman_goniec_wieza(int Strona_hgw, int KwadratZKtoregoRuszaSieBierka_hgw, int RodzajBierkiBezWzgleduNaKolor_hgw, ruchy *glowa_hgw);
+ruchy * hetman_goniec_wieza(int Strona_hgw, int KwadratZKtoregoRuszaSieBierka_hgw, int RodzajBierkiBezWzgleduNaKolor_hgw, ruchy *glowa_hgw, szachownica *sz_hgw);
 
-ruchy * krol_kon(int Strona_kk, int KwadratZKtoregoRuszaSieBierka_kk, int RodzajBierkiBezWzgleduNaKolor_kk, ruchy *glowa_kk);
+ruchy * krol_kon(int Strona_kk, int KwadratZKtoregoRuszaSieBierka_kk, int RodzajBierkiBezWzgleduNaKolor_kk, ruchy *glowa_kk, szachownica *sz_kk);
 
-ruchy * MozliweRuchy(int GraczKtoregoJestRuch, ruchy * glowa_mr);
+ruchy * MozliweRuchy(int GraczKtoregoJestRuch, ruchy * glowa_mr, szachownica *sz_mr);
 
 #endif

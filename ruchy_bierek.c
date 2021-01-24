@@ -16,13 +16,13 @@ szachownica * WykonajRuch(int Strona_wr, char *ruch_wr, ruchy *glowa_wr, szachow
     ruchy *p_wr = (ruchy*)malloc(sizeof(ruchy));
     p_wr = glowa_wr;
     int CzyPoprawnieWpisanyRuch_wr = 0;
+    //int ZrobDodatkowyWhile = 2;
 
     while(!(CzyPoprawnieWpisanyRuch_wr != 0)){
 
-        while(p_wr->next != NULL){
+        while(p_wr->next != NULL) {
             if((strcmp(p_wr->NazwaRuchu, ruch_wr) == 0)){
-                printf("siema\n");
-                sz_wr->szachownica[p_wr->KwadratDocelowy]=Plansza[p_wr->KwadratZrodlowy];
+                sz_wr->szachownica[p_wr->KwadratDocelowy]=sz_wr->szachownica[p_wr->KwadratZrodlowy];
                 sz_wr->szachownica[p_wr->KwadratZrodlowy] = 0;
                 CzyPoprawnieWpisanyRuch_wr = 1;
                 
@@ -41,15 +41,15 @@ szachownica * WykonajRuch(int Strona_wr, char *ruch_wr, ruchy *glowa_wr, szachow
     return sz_wr;
 }
 
-int OcenaGry(){
+int OcenaGry(szachownica *sz_og){
     int Ocena_og;
     int BialyKrol_og = 0;
     int CzarnyKrol_og = 0;
     for(int i = 0; i<128; i++){
         if(!(i & 0x88)){
-            if(Plansza[i] == 11)
+            if(sz_og->szachownica[i] == 11)
             BialyKrol_og = 1;
-            if(Plansza[i] == 19)
+            if(sz_og->szachownica[i] == 19)
             CzarnyKrol_og = 1;
         }
     }
@@ -121,31 +121,31 @@ int PrzypiszBierke(int KwadratZKtoregoRuszaPionek, szachownica *sz_pb){
     return BierkaJakaZnajdujeSieNaPolu;
 }
 
-ruchy * bialy_pionek(int KwadratZKtoregoRuszaPionek_bp, ruchy *glowa_bp){
+ruchy * bialy_pionek(int KwadratZKtoregoRuszaPionek_bp, ruchy *glowa_bp, szachownica *sz_bp){
     int Strona_bp, Kierunek_bp, KwadratNaKtoryRuszaPionek_bp, ZbitaBierka_bp;
     Strona_bp = 8;
     Kierunek_bp = ListaRuchow[32];
     Kierunek_bp++;
     KwadratNaKtoryRuszaPionek_bp = KwadratZKtoregoRuszaPionek_bp + ListaRuchow[Kierunek_bp];
-    ZbitaBierka_bp = Plansza[KwadratNaKtoryRuszaPionek_bp];
+    ZbitaBierka_bp = sz_bp->szachownica[KwadratNaKtoryRuszaPionek_bp];
     
     if((ZbitaBierka_bp & 16) && (!(KwadratNaKtoryRuszaPionek_bp & 0x88))){
         glowa_bp = ZrobListeRuchow(KwadratZKtoregoRuszaPionek_bp, KwadratNaKtoryRuszaPionek_bp, glowa_bp);
     }
     KwadratNaKtoryRuszaPionek_bp = KwadratNaKtoryRuszaPionek_bp -2;
-    ZbitaBierka_bp = Plansza[KwadratNaKtoryRuszaPionek_bp];
+    ZbitaBierka_bp = sz_bp->szachownica[KwadratNaKtoryRuszaPionek_bp];
     if((ZbitaBierka_bp & 16) && (!(KwadratNaKtoryRuszaPionek_bp & 0x88))){
         glowa_bp = ZrobListeRuchow(KwadratZKtoregoRuszaPionek_bp, KwadratNaKtoryRuszaPionek_bp, glowa_bp);
     }
     Kierunek_bp++;
     KwadratNaKtoryRuszaPionek_bp = KwadratZKtoregoRuszaPionek_bp + ListaRuchow[Kierunek_bp];
-    ZbitaBierka_bp = Plansza[KwadratNaKtoryRuszaPionek_bp];
+    ZbitaBierka_bp = sz_bp->szachownica[KwadratNaKtoryRuszaPionek_bp];
     if(((!(ZbitaBierka_bp & 16)) && (!(ZbitaBierka_bp & 8)))){
         glowa_bp = ZrobListeRuchow(KwadratZKtoregoRuszaPionek_bp, KwadratNaKtoryRuszaPionek_bp, glowa_bp);
         if((KwadratZKtoregoRuszaPionek_bp >= 96) && (KwadratZKtoregoRuszaPionek_bp <= 103)){
             Kierunek_bp++;
             KwadratNaKtoryRuszaPionek_bp = KwadratZKtoregoRuszaPionek_bp + ListaRuchow[Kierunek_bp];
-            ZbitaBierka_bp = Plansza[KwadratNaKtoryRuszaPionek_bp];
+            ZbitaBierka_bp = sz_bp->szachownica[KwadratNaKtoryRuszaPionek_bp];
             if((!(ZbitaBierka_bp & 16)) && (!(ZbitaBierka_bp & 8))){
                 glowa_bp = ZrobListeRuchow(KwadratZKtoregoRuszaPionek_bp, KwadratNaKtoryRuszaPionek_bp, glowa_bp);
                 }
@@ -154,20 +154,20 @@ ruchy * bialy_pionek(int KwadratZKtoregoRuszaPionek_bp, ruchy *glowa_bp){
     return glowa_bp;
 }
 
-ruchy * czarny_pionek(int KwadratZKtoregoRuszaPionek_cp, ruchy *glowa_cp){
+ruchy * czarny_pionek(int KwadratZKtoregoRuszaPionek_cp, ruchy *glowa_cp, szachownica *sz_cp){
     int Strona_cp, Kierunek_cp, KwadratNaKtoryRuszaPionek_cp, ZbitaBierka_cp;
     Strona_cp = 16;
     Kierunek_cp = ListaRuchow[31];
     Kierunek_cp++;
     KwadratNaKtoryRuszaPionek_cp = KwadratZKtoregoRuszaPionek_cp + ListaRuchow[Kierunek_cp];
-    ZbitaBierka_cp = Plansza[KwadratNaKtoryRuszaPionek_cp];
+    ZbitaBierka_cp = sz_cp->szachownica[KwadratNaKtoryRuszaPionek_cp];
     
     if((ZbitaBierka_cp & 8) && (!(KwadratNaKtoryRuszaPionek_cp & 0x88))){
         glowa_cp = ZrobListeRuchow(KwadratZKtoregoRuszaPionek_cp, KwadratNaKtoryRuszaPionek_cp, glowa_cp);
     }
 
     KwadratNaKtoryRuszaPionek_cp = KwadratNaKtoryRuszaPionek_cp +2;
-    ZbitaBierka_cp = Plansza[KwadratNaKtoryRuszaPionek_cp];
+    ZbitaBierka_cp = sz_cp->szachownica[KwadratNaKtoryRuszaPionek_cp];
 
     if((ZbitaBierka_cp & 8) && (!(KwadratNaKtoryRuszaPionek_cp & 0x88))){
         glowa_cp = ZrobListeRuchow(KwadratZKtoregoRuszaPionek_cp, KwadratNaKtoryRuszaPionek_cp, glowa_cp);
@@ -175,13 +175,13 @@ ruchy * czarny_pionek(int KwadratZKtoregoRuszaPionek_cp, ruchy *glowa_cp){
 
     Kierunek_cp++;
     KwadratNaKtoryRuszaPionek_cp = KwadratZKtoregoRuszaPionek_cp + ListaRuchow[Kierunek_cp];
-    ZbitaBierka_cp = Plansza[KwadratNaKtoryRuszaPionek_cp];
+    ZbitaBierka_cp = sz_cp->szachownica[KwadratNaKtoryRuszaPionek_cp];
     if((!(ZbitaBierka_cp & 16)) && (!(ZbitaBierka_cp & 8))){
         glowa_cp = ZrobListeRuchow(KwadratZKtoregoRuszaPionek_cp, KwadratNaKtoryRuszaPionek_cp, glowa_cp);
         if((KwadratZKtoregoRuszaPionek_cp >= 16) && (KwadratZKtoregoRuszaPionek_cp <= 23)){
             Kierunek_cp++;
             KwadratNaKtoryRuszaPionek_cp = KwadratZKtoregoRuszaPionek_cp + ListaRuchow[Kierunek_cp];
-            ZbitaBierka_cp = Plansza[KwadratNaKtoryRuszaPionek_cp];
+            ZbitaBierka_cp = sz_cp->szachownica[KwadratNaKtoryRuszaPionek_cp];
             if((!(ZbitaBierka_cp & 16)) && (!(ZbitaBierka_cp & 8))){
                 glowa_cp = ZrobListeRuchow(KwadratZKtoregoRuszaPionek_cp, KwadratNaKtoryRuszaPionek_cp, glowa_cp);
             }
@@ -190,18 +190,18 @@ ruchy * czarny_pionek(int KwadratZKtoregoRuszaPionek_cp, ruchy *glowa_cp){
     return glowa_cp;
 }
 
-ruchy * hetman_goniec_wieza(int Strona_hgw, int KwadratZKtoregoRuszaSieBierka_hgw, int RodzajBierkiBezWzgleduNaKolor_hgw, ruchy * glowa_hgw){
+ruchy * hetman_goniec_wieza(int Strona_hgw, int KwadratZKtoregoRuszaSieBierka_hgw, int RodzajBierkiBezWzgleduNaKolor_hgw, ruchy * glowa_hgw, szachownica *sz_hgw){
     
     int Kierunek_hgw, KwadratNaKtoryRuszaSieBierka_hgw, ZbitaBierka_hgw;
     
     Kierunek_hgw = ListaRuchow[RodzajBierkiBezWzgleduNaKolor_hgw+30];
     while(ListaRuchow[++Kierunek_hgw] !=0){
         KwadratNaKtoryRuszaSieBierka_hgw = KwadratZKtoregoRuszaSieBierka_hgw + ListaRuchow[Kierunek_hgw];
-        ZbitaBierka_hgw = Plansza [KwadratNaKtoryRuszaSieBierka_hgw];
+        ZbitaBierka_hgw = sz_hgw->szachownica[KwadratNaKtoryRuszaSieBierka_hgw];
         while((ZbitaBierka_hgw == 0) && (!(KwadratNaKtoryRuszaSieBierka_hgw & 0x88))){
             glowa_hgw = ZrobListeRuchow(KwadratZKtoregoRuszaSieBierka_hgw, KwadratNaKtoryRuszaSieBierka_hgw, glowa_hgw); 
             KwadratNaKtoryRuszaSieBierka_hgw += ListaRuchow[Kierunek_hgw];
-            ZbitaBierka_hgw = Plansza[KwadratNaKtoryRuszaSieBierka_hgw];
+            ZbitaBierka_hgw = sz_hgw->szachownica[KwadratNaKtoryRuszaSieBierka_hgw];
         }
         if((!(ZbitaBierka_hgw & Strona_hgw)) && (!(KwadratNaKtoryRuszaSieBierka_hgw & 0x88))){
             glowa_hgw = ZrobListeRuchow(KwadratZKtoregoRuszaSieBierka_hgw, KwadratNaKtoryRuszaSieBierka_hgw, glowa_hgw);        }
@@ -209,7 +209,7 @@ ruchy * hetman_goniec_wieza(int Strona_hgw, int KwadratZKtoregoRuszaSieBierka_hg
     return glowa_hgw;
 }
 
-ruchy * krol_kon(int Strona_kk, int KwadratZKtoregoRuszaSieBierka_kk, int RodzajBierkiBezWzgleduNaKolor_kk, ruchy * glowa_kk){
+ruchy * krol_kon(int Strona_kk, int KwadratZKtoregoRuszaSieBierka_kk, int RodzajBierkiBezWzgleduNaKolor_kk, ruchy * glowa_kk, szachownica *sz_kk){
     
     int Kierunek_kk, KwadratNaKtoryRuszaSieBierka_kk, ZbitaBierka_kk;
     
@@ -217,37 +217,37 @@ ruchy * krol_kon(int Strona_kk, int KwadratZKtoregoRuszaSieBierka_kk, int Rodzaj
     
     while(ListaRuchow[++Kierunek_kk] !=0){
         KwadratNaKtoryRuszaSieBierka_kk = KwadratZKtoregoRuszaSieBierka_kk + ListaRuchow[Kierunek_kk];
-        ZbitaBierka_kk = Plansza[KwadratNaKtoryRuszaSieBierka_kk];
+        ZbitaBierka_kk = sz_kk->szachownica[KwadratNaKtoryRuszaSieBierka_kk];
         if((!(ZbitaBierka_kk & Strona_kk)) && (!(KwadratNaKtoryRuszaSieBierka_kk & 0x88)))
             glowa_kk = ZrobListeRuchow(KwadratZKtoregoRuszaSieBierka_kk, KwadratNaKtoryRuszaSieBierka_kk, glowa_kk);
     }
     return glowa_kk;
 }
 
-ruchy * MozliweRuchy(int GraczKtoregoJestRuch, ruchy * glowa_mr){
+ruchy * MozliweRuchy(int GraczKtoregoJestRuch, ruchy * glowa_mr, szachownica *sz_mr){
     int BierkaJakaZnajdujeSieNaPolu, RodzajPionkaBezWzgleduNaKolor, RuchWykonywanyPrzezPionek, KwadratNaKtoryRuszaSieBierka, Zbity_Kw, ZbitaBierka, Przejscie;
 
     printf("Mozliwe ruchy to:\n");
         
     for(int KwadratZKtoregoRuszaPionek = 0; KwadratZKtoregoRuszaPionek < 128; KwadratZKtoregoRuszaPionek++){
         if(!(KwadratZKtoregoRuszaPionek & 0x88)){
-            BierkaJakaZnajdujeSieNaPolu = Plansza[KwadratZKtoregoRuszaPionek];
+            BierkaJakaZnajdujeSieNaPolu = sz_mr->szachownica[KwadratZKtoregoRuszaPionek];
 
             if(BierkaJakaZnajdujeSieNaPolu & GraczKtoregoJestRuch){
 
                 RodzajPionkaBezWzgleduNaKolor = BierkaJakaZnajdujeSieNaPolu & 7;
                 if(BierkaJakaZnajdujeSieNaPolu == 9){
-                    glowa_mr = bialy_pionek(KwadratZKtoregoRuszaPionek, glowa_mr);
+                    glowa_mr = bialy_pionek(KwadratZKtoregoRuszaPionek, glowa_mr, sz_mr);
                 }
                 else if(BierkaJakaZnajdujeSieNaPolu ==18){
-                    glowa_mr = czarny_pionek(KwadratZKtoregoRuszaPionek, glowa_mr);
+                    glowa_mr = czarny_pionek(KwadratZKtoregoRuszaPionek, glowa_mr, sz_mr);
                 }
                 else if((RodzajPionkaBezWzgleduNaKolor == 3) || (RodzajPionkaBezWzgleduNaKolor == 4)){
-                    glowa_mr = krol_kon(GraczKtoregoJestRuch, KwadratZKtoregoRuszaPionek, RodzajPionkaBezWzgleduNaKolor, glowa_mr);
+                    glowa_mr = krol_kon(GraczKtoregoJestRuch, KwadratZKtoregoRuszaPionek, RodzajPionkaBezWzgleduNaKolor, glowa_mr, sz_mr);
                 }
                             
                 else if((RodzajPionkaBezWzgleduNaKolor >= 5) || (RodzajPionkaBezWzgleduNaKolor <= 7)){
-                    glowa_mr = hetman_goniec_wieza(GraczKtoregoJestRuch, KwadratZKtoregoRuszaPionek, RodzajPionkaBezWzgleduNaKolor, glowa_mr);
+                    glowa_mr = hetman_goniec_wieza(GraczKtoregoJestRuch, KwadratZKtoregoRuszaPionek, RodzajPionkaBezWzgleduNaKolor, glowa_mr, sz_mr);
                 }               
             }
         }

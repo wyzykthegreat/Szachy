@@ -14,11 +14,13 @@ int main(){
     Ocena_main = OcenaGry();
     while(Ocena_main == 0){
         WypiszPlansze(sz_main);
-        glowa_main = MozliweRuchy(Strona_main, glowa_main);
-        WypiszListe(glowa_main);
+        glowa_main = MozliweRuchy(Strona_main, glowa_main, sz_main);
+        //WypiszListe(glowa_main);
         printf("Jaki ruch wykonujesz?\n");
         scanf("%s", ruch_main);
         sz_main = WykonajRuch(Strona_main, ruch_main, glowa_main, sz_main);
+        
+        
         if(Strona_main == 8){
             Strona_main = 16;
         }
