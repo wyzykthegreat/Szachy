@@ -1,20 +1,40 @@
 #ifndef _RUCHY_BIEREK_H
 #define _RUCHY_BIEREK_H
 
-void ZrobListeRuchow(int KwadratZKtoregoRuszaSieBierka_zlr, int KwadratNaKtoryRuszaSieBierka_zlr);
 
-void WypiszPlansze();
+typedef struct _ruchy{
+    int KwadratZrodlowy;
+    int KwadratDocelowy;
+    char NazwaRuchu[5];
+    struct _ruchy *next;
+} ruchy;
 
-int PrzypiszBierke(int KwadratZKtoregoRuszaPionek);
+typedef struct _szachownica{
+    int szachownica[128];
+} szachownica;
 
-void bialy_pionek(int KwadratZKtoregoRuszaPionek_bp);
+szachownica * UstawSzachownice(szachownica *sz_us);
 
-void czarny_pionek(int KwadratZKtoregoRuszaPionek_cp);
+szachownica * WykonajRuch(int Strona_wr, char *ruch_wr, ruchy *glowa_wr, szachownica *sz_wr);
 
-void hetman_goniec_wieza(int Strona_hgw, int KwadratZKtoregoRuszaSieBierka_hgw, int RodzajBierkiBezWzgleduNaKolor_hgw);
+void WypiszListe(ruchy *glowa_wl);
 
-void krol_kon(int Strona_kk, int KwadratZKtoregoRuszaSieBierka_kk, int RodzajBierkiBezWzgleduNaKolor_kk);
+ruchy * ZrobListeRuchow(int KwadratZKtoregoRuszaSieBierka_zlr, int KwadratNaKtoryRuszaSieBierka_zlr, ruchy *glowa_zlr);
 
-void MozliweRuchy(int GraczKtoregoJestRuch);
+int OcenaGry();
+
+void WypiszPlansze(szachownica *sz_wp);
+
+int PrzypiszBierke(int KwadratZKtoregoRuszaPionek, szachownica *sz_pb);
+
+ruchy * bialy_pionek(int KwadratZKtoregoRuszaPionek_bp, ruchy *glowa_bp);
+
+ruchy * czarny_pionek(int KwadratZKtoregoRuszaPionek_bp, ruchy *glowa_cp);
+
+ruchy * hetman_goniec_wieza(int Strona_hgw, int KwadratZKtoregoRuszaSieBierka_hgw, int RodzajBierkiBezWzgleduNaKolor_hgw, ruchy *glowa_hgw);
+
+ruchy * krol_kon(int Strona_kk, int KwadratZKtoregoRuszaSieBierka_kk, int RodzajBierkiBezWzgleduNaKolor_kk, ruchy *glowa_kk);
+
+ruchy * MozliweRuchy(int GraczKtoregoJestRuch, ruchy * glowa_mr);
 
 #endif

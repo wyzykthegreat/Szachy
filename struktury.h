@@ -46,12 +46,7 @@ char *Bierki[] = {                      // print unicode characters to represent
 
 };
 
-typedef struct _ruchy{
-    int KwadratZrodlowy;
-    int KwadratDocelowy;
-    char NazwaRuchu[5];
-    struct _ruchy *next;
-} ruchy;
+
 
 #endif
 
