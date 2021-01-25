@@ -11,7 +11,10 @@ typedef struct _ruchy{
 
 typedef struct _szachownica{
     int szachownica[128];
+    int ruch;
 } szachownica;
+
+int ZliczanieBierkek(szachownica *sz_zb);
 
 szachownica * UstawSzachownice(szachownica *sz_us);
 

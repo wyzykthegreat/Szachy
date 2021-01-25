@@ -4,43 +4,6 @@
 #include "ruchy_bierek.h"
 #include "struktury.h"
 
-
-szachownica * UstawSzachownice(szachownica *sz_us){
-    for(int i = 0; i<128; i++){
-        sz_us->szachownica[i]=Plansza[i];
-    }
-    return sz_us;
-}
-
-szachownica * WykonajRuch(int Strona_wr, char *ruch_wr, ruchy *glowa_wr, szachownica *sz_wr){
-    ruchy *p_wr = (ruchy*)malloc(sizeof(ruchy));
-    p_wr = glowa_wr;
-    int CzyPoprawnieWpisanyRuch_wr = 0;
-    //int ZrobDodatkowyWhile = 2;
-
-    while(!(CzyPoprawnieWpisanyRuch_wr != 0)){
-
-        while(p_wr->next != NULL) {
-            if((strcmp(p_wr->NazwaRuchu, ruch_wr) == 0)){
-                sz_wr->szachownica[p_wr->KwadratDocelowy]=sz_wr->szachownica[p_wr->KwadratZrodlowy];
-                sz_wr->szachownica[p_wr->KwadratZrodlowy] = 0;
-                CzyPoprawnieWpisanyRuch_wr = 1;
-                
-            }
-            p_wr = p_wr->next;
-        }
-        
-    }
-    if(Strona_wr ==8){
-        Strona_wr = 16;
-    }
-    else{
-        Strona_wr = 8;
-    }
-    
-    return sz_wr;
-}
-
 int OcenaGry(szachownica *sz_og){
     int Ocena_og;
     int BialyKrol_og = 0;
@@ -61,6 +24,106 @@ int OcenaGry(szachownica *sz_og){
     Ocena_og = 0;
     
     return Ocena_og;
+}
+
+int ZliczanieBierkek(szachownica *sz_zb){
+    int punkty = 0;
+    for(int i = 0; i<128; i++){
+        if(!(i & 0x88)){
+            if(sz_zb->szachownica[i]==9){
+                punkty += 1;
+            }
+            if(sz_zb->szachownica[i]==18){
+                punkty -= 1;
+            }
+            if(sz_zb->szachownica[i]==11){
+                punkty += 1000;
+            }
+            if(sz_zb->szachownica[i]==12){
+                punkty += 3;
+            }
+            if(sz_zb->szachownica[i]==13){
+                punkty += 3;
+            }
+            if(sz_zb->szachownica[i]==14){
+                punkty += 5;
+            }
+            if(sz_zb->szachownica[i]==15){
+                punkty += 9;
+            }
+            if(sz_zb->szachownica[i]==19){
+                punkty -= 1000;
+            }
+            if(sz_zb->szachownica[i]==20){
+                punkty -= 3;
+            }
+            if(sz_zb->szachownica[i]==21){
+                punkty -= 3;
+            }
+            if(sz_zb->szachownica[i]==22){
+                punkty -= 5;
+            }
+            if(sz_zb->szachownica[i]==23){
+                punkty -= 9;
+            }
+            
+        }
+    }
+    return punkty;
+}
+
+// int NegaMax(szachownica *sz_nm, int glebokosc_nm, int alpha_nm, int beta_nm, int strona_nm){
+//     int maxEval, minEval, eval
+//     if((glebokosc_nm == 0) || KoniecGry){
+//         return ocenapozycji
+//     }
+//     if(strona_nm == 8){
+//         maxEval = -10000
+//     }
+//     else{
+
+//     }
+// }
+
+szachownica * UstawSzachownice(szachownica *sz_us){
+    for(int i = 0; i<128; i++){
+        sz_us->szachownica[i]=Plansza[i];
+        sz_us->ruch = 8;
+    }
+    return sz_us;
+}
+
+szachownica * WykonajRuch(int Strona_wr, char *ruch_wr, ruchy *glowa_wr, szachownica *sz_wr){
+    ruchy *p_wr = (ruchy*)malloc(sizeof(ruchy));
+    p_wr = glowa_wr;
+    int CzyPoprawnieWpisanyRuch_wr = 1;
+    while(p_wr->next != NULL) {
+        printf("elo\n");
+        if((strcmp(p_wr->NazwaRuchu, ruch_wr) == 0)){
+            printf("jestem w ifie\n");
+            sz_wr->szachownica[p_wr->KwadratDocelowy]=sz_wr->szachownica[p_wr->KwadratZrodlowy];
+            sz_wr->szachownica[p_wr->KwadratZrodlowy] = 0;
+            CzyPoprawnieWpisanyRuch_wr = 0;
+            printf("wchodzimy glebiej w ifa\n");
+            p_wr->next = NULL;
+            printf("schodzimy nizej hehe");
+            break;
+                
+        }
+        p_wr = p_wr->next;
+    }
+    if(CzyPoprawnieWpisanyRuch_wr == 1){
+            sz_wr->szachownica[p_wr->KwadratDocelowy]=sz_wr->szachownica[p_wr->KwadratZrodlowy];
+            sz_wr->szachownica[p_wr->KwadratZrodlowy] = 0;
+            CzyPoprawnieWpisanyRuch_wr = 0;
+        }
+    if(sz_wr->ruch == 8){
+        sz_wr->ruch = 16;
+    }
+    else{
+        sz_wr->ruch = 8;
+    }
+    return sz_wr;
 }
 
 void WypiszListe(ruchy *glowa_wl){

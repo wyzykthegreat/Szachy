@@ -15,7 +15,6 @@ int main(){
     while(Ocena_main == 0){
         WypiszPlansze(sz_main);
         glowa_main = MozliweRuchy(Strona_main, glowa_main, sz_main);
-        //WypiszListe(glowa_main);
         printf("Jaki ruch wykonujesz?\n");
         scanf("%s", ruch_main);
         sz_main = WykonajRuch(Strona_main, ruch_main, glowa_main, sz_main);
@@ -29,6 +28,8 @@ int main(){
         }
         Ocena_main = OcenaGry();
     }
+    free(sz_main);
+    free(glowa_main);
     
     return 0;
 }
