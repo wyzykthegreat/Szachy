@@ -36,3 +36,49 @@ To do:
     2. en passant
     3. negamax
     4. (opcjonalnie) plansza ladna
+
+    // int NegaMax(szachownica *sz_nm, int glebokosc_nm, int alpha_nm, int beta_nm, int strona_nm){
+//     int maxEval, minEval, eval;
+//     int ocena_nm;
+//     ocena_nm = OcenaGry(sz_nm);
+//     if((glebokosc_nm == 0) || ocena_nm != 0){
+//         return ZliczanieBierkek(sz_nm);
+//     }
+//     if(strona_nm == 8){
+//         maxEval = -10000
+//         while()
+//     }
+//     else{
+
+//     }
+// }
+
+// int negaMax(szachownica * sz_nm, int glebokosc_nm, int alfa_nm, int beta_nm)
+// {
+// if (!glebokosc_nm){
+//     return ZliczanieBierkek(*sz_nm);
+// }
+
+//     int nowaocena_nm;
+//     int ocenawezla_nm=-2000;
+//     int i=0;
+// for(ruchy *glowa_lr = ZrobListeRuchow(*sz_nm), *ptr = lr; lr; i++, lr = lr->next, free(ptr), ptr = lr)
+// {
+//     Plansza dziecko = wykonaj_ruch(*sz, ptr->kolumna); //plansza po ruchu to dziecko
+//     nowaocena = -negmax(&dziecko, glebokosc - 1, -beta, -alfa);
+//     // printf("iteracja:%d\n",i);
+//     // printf("nowaocena1:%d\n",nowaocena);
+//     // printf("ocenawezla1:%d\n",ocenawezla);
+//     if (nowaocena > ocenawezla)
+//     ocenawezla = nowaocena;
+//     if (ocenawezla > alfa)
+//     alfa = ocenawezla;
+//     // printf("alfa:%d\n\n",alfa);
+//     if (alfa > beta)
+//     {
+//         // zwolninenie listy ruchów do końca
+//         break;
+//     }
+// }
+//     return ocenawezla;
+// }

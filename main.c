@@ -11,22 +11,18 @@ int main(){
     char ruch_main[5];
     int Strona_main = 8;
     int Ocena_main = 0;
-    Ocena_main = OcenaGry();
+    Ocena_main = OcenaGry(sz_main);
+    // int punktybierek_main;
+    // punktybierek_main = NegaMax(sz_main, 0, -2000, 2000, Strona_main);
+    // printf("%d", punktybierek_main);
     while(Ocena_main == 0){
         WypiszPlansze(sz_main);
-        glowa_main = MozliweRuchy(Strona_main, glowa_main, sz_main);
+        sz_main->glowaMozliwychRuchow = MozliweRuchy(sz_main->strona, sz_main);
         printf("Jaki ruch wykonujesz?\n");
         scanf("%s", ruch_main);
-        sz_main = WykonajRuch(Strona_main, ruch_main, glowa_main, sz_main);
+        sz_main = WykonajRuch(sz_main->strona, ruch_main, sz_main);
         
-        
-        if(Strona_main == 8){
-            Strona_main = 16;
-        }
-        else{
-            Strona_main = 8;
-        }
-        Ocena_main = OcenaGry();
+        Ocena_main = OcenaGry(sz_main);
     }
     free(sz_main);
     free(glowa_main);

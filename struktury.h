@@ -39,9 +39,9 @@ char *notacja[] = {
 
 // enum { bialy = 8, czarny = 16};
 
-char *Bierki[] = {                      // print unicode characters to represent pieces on board
+char *Bierki[] = {
 
-	".", "-", "\u265F", "\u265A", "\u265E", "\u265D", "\u265C", "\u265B", 
+	".", "\u2588", "\u265F", "\u265A", "\u265E", "\u265D", "\u265C", "\u265B", 
 	"-", "\u2659", "-", "\u2654", "\u2658", "\u2657", "\u2656", "\u2655",  
 
 };

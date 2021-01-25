@@ -11,14 +11,17 @@ typedef struct _ruchy{
 
 typedef struct _szachownica{
     int szachownica[128];
-    int ruch;
+    int strona;
+    ruchy *glowaMozliwychRuchow;
 } szachownica;
 
 int ZliczanieBierkek(szachownica *sz_zb);
 
+int NegaMax(szachownica *sz_nm, int glebokosc_nm, int alpha_nm, int beta_nm, int strona_nm);
+
 szachownica * UstawSzachownice(szachownica *sz_us);
 
-szachownica * WykonajRuch(int Strona_wr, char *ruch_wr, ruchy *glowa_wr, szachownica *sz_wr);
+szachownica * WykonajRuch(int Strona_wr, char *ruch_wr, szachownica *sz_wr);
 
 void WypiszListe(ruchy *glowa_wl);
 
@@ -38,6 +41,6 @@ ruchy * hetman_goniec_wieza(int Strona_hgw, int KwadratZKtoregoRuszaSieBierka_hg
 
 ruchy * krol_kon(int Strona_kk, int KwadratZKtoregoRuszaSieBierka_kk, int RodzajBierkiBezWzgleduNaKolor_kk, ruchy *glowa_kk, szachownica *sz_kk);
 
-ruchy * MozliweRuchy(int GraczKtoregoJestRuch, ruchy * glowa_mr, szachownica *sz_mr);
+ruchy * MozliweRuchy(int GraczKtoregoJestRuch, szachownica *sz_mr);
 
 #endif

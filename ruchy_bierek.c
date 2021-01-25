@@ -18,7 +18,7 @@ int OcenaGry(szachownica *sz_og){
     }
     if(BialyKrol_og > CzarnyKrol_og)
     Ocena_og = 1;
-    if(CzarnyKrol_og > BialyKrol_og)
+    else if(CzarnyKrol_og > BialyKrol_og)
     Ocena_og = -1;
     else
     Ocena_og = 0;
@@ -72,68 +72,116 @@ int ZliczanieBierkek(szachownica *sz_zb){
     return punkty;
 }
 
+// szachownica * ZrobNibyRuch(szachownica *sz_znr, int strona_znr){
+    
+//     return sz_znr;
+// }
+
 // int NegaMax(szachownica *sz_nm, int glebokosc_nm, int alpha_nm, int beta_nm, int strona_nm){
-//     int maxEval, minEval, eval
-//     if((glebokosc_nm == 0) || KoniecGry){
-//         return ocenapozycji
+//     int maxEval, minEval, eval;
+//     int ocena_nm;
+//     ruchy *MozliweRuchy_nm;
+//     //zaalokowac pamiec tu trzeba
+//     ocena_nm = OcenaGry(sz_nm);
+//     if((glebokosc_nm == 0) || ocena_nm != 0){
+//         return ZliczanieBierkek(sz_nm);
 //     }
 //     if(strona_nm == 8){
-//         maxEval = -10000
+//         int stronaTymczasowa_nm = 16;
+//         MozliweRuchy_nm = ZrobListeRuchow();
+//         maxEval = -10000;
+//         eval = NegaMax(ZrobNibyRuch(sz_nm, strona_nm), glebokosc_nm - 1, alpha_nm, beta_nm, stronaTymczasowa_nm);
+        
 //     }
 //     else{
 
 //     }
 // }
 
+// int negaMax(szachownica * sz_nm, int glebokosc_nm, int alfa_nm, int beta_nm)
+// {
+// if (!glebokosc_nm){
+//     return ZliczanieBierkek(*sz_nm);
+// }
+
+//     int nowaocena_nm;
+//     int ocenawezla_nm=-2000;
+//     int i=0;
+// for(ruchy *glowa_lr = ZrobListeRuchow(*sz_nm), *ptr = lr; lr; i++, lr = lr->next, free(ptr), ptr = lr)
+// {
+//     Plansza dziecko = wykonaj_ruch(*sz, ptr->kolumna); //plansza po ruchu to dziecko
+//     nowaocena = -negmax(&dziecko, glebokosc - 1, -beta, -alfa);
+//     // printf("iteracja:%d\n",i);
+//     // printf("nowaocena1:%d\n",nowaocena);
+//     // printf("ocenawezla1:%d\n",ocenawezla);
+//     if (nowaocena > ocenawezla)
+//     ocenawezla = nowaocena;
+//     if (ocenawezla > alfa)
+//     alfa = ocenawezla;
+//     // printf("alfa:%d\n\n",alfa);
+//     if (alfa > beta)
+//     {
+//         // zwolninenie listy ruchów do końca
+//         break;
+//     }
+// }
+//     return ocenawezla;
+// }
+
 szachownica * UstawSzachownice(szachownica *sz_us){
     for(int i = 0; i<128; i++){
         sz_us->szachownica[i]=Plansza[i];
-        sz_us->ruch = 8;
+        sz_us->strona = 8;
     }
     return sz_us;
 }
 
-szachownica * WykonajRuch(int Strona_wr, char *ruch_wr, ruchy *glowa_wr, szachownica *sz_wr){
-    ruchy *p_wr = (ruchy*)malloc(sizeof(ruchy));
-    p_wr = glowa_wr;
-    int CzyPoprawnieWpisanyRuch_wr = 1;
-    while(p_wr->next != NULL) {
-        printf("elo\n");
-        if((strcmp(p_wr->NazwaRuchu, ruch_wr) == 0)){
-            printf("jestem w ifie\n");
-            sz_wr->szachownica[p_wr->KwadratDocelowy]=sz_wr->szachownica[p_wr->KwadratZrodlowy];
-            sz_wr->szachownica[p_wr->KwadratZrodlowy] = 0;
-            CzyPoprawnieWpisanyRuch_wr = 0;
-            printf("wchodzimy glebiej w ifa\n");
-            p_wr->next = NULL;
-            printf("schodzimy nizej hehe");
-            break;
-                
-        }
-        p_wr = p_wr->next;
-    }
-    if(CzyPoprawnieWpisanyRuch_wr == 1){
-            sz_wr->szachownica[p_wr->KwadratDocelowy]=sz_wr->szachownica[p_wr->KwadratZrodlowy];
-            sz_wr->szachownica[p_wr->KwadratZrodlowy] = 0;
-            CzyPoprawnieWpisanyRuch_wr = 0;
-        }
-    if(sz_wr->ruch == 8){
-        sz_wr->ruch = 16;
-    }
-    else{
-        sz_wr->ruch = 8;
-    }
-    return sz_wr;
-}
-
 void WypiszListe(ruchy *glowa_wl){
-    ruchy *p_wl;
+    ruchy *p_wl = (ruchy*)malloc(sizeof(ruchy));
     p_wl = glowa_wl;
 
     do {
         printf("%s\n", p_wl->NazwaRuchu);
         p_wl = p_wl->next;
     } while(p_wl->next!=NULL);
+    free(p_wl);
+}
+
+szachownica * WykonajRuch(int Strona_wr, char *ruch_wr, szachownica *sz_wr){
+    ruchy *p_wr = (ruchy*)malloc(sizeof(ruchy));
+    p_wr = sz_wr->glowaMozliwychRuchow;
+    int CzyPoprawnieWpisanyRuch_wr = 1;
+
+    while(p_wr->next != NULL) {
+        if((strcmp(p_wr->NazwaRuchu, ruch_wr) == 0)){
+            sz_wr->szachownica[p_wr->KwadratDocelowy]=sz_wr->szachownica[p_wr->KwadratZrodlowy];
+            sz_wr->szachownica[p_wr->KwadratZrodlowy] = 0;
+            CzyPoprawnieWpisanyRuch_wr = 0;
+            p_wr->next = NULL;
+            break;
+                
+        }
+        p_wr = p_wr->next;
+    }
+    if(CzyPoprawnieWpisanyRuch_wr == 1){
+        if((strcmp(p_wr->NazwaRuchu, ruch_wr) == 0)){
+            sz_wr->szachownica[p_wr->KwadratDocelowy]=sz_wr->szachownica[p_wr->KwadratZrodlowy];
+            sz_wr->szachownica[p_wr->KwadratZrodlowy] = 0;
+            CzyPoprawnieWpisanyRuch_wr = 0;
+        }
+        else{
+            printf("zle wpisany ruch\n");
+        }
+    }
+    if(CzyPoprawnieWpisanyRuch_wr == 0){
+        if(sz_wr->strona == 8){
+            sz_wr->strona = 16;
+        }
+        else{
+            sz_wr->strona = 8;
+        }
+    }
+    return sz_wr;
 }
 
 ruchy * ZrobListeRuchow(int KwadratZKtoregoRuszaSieBierka_zlr, int KwadratNaKtoryRuszaSieBierka_zlr, ruchy *glowa_zlr){
@@ -142,7 +190,6 @@ ruchy * ZrobListeRuchow(int KwadratZKtoregoRuszaSieBierka_zlr, int KwadratNaKtor
     strcpy(NazwaRuchu1_zlr, notacja[KwadratZKtoregoRuszaSieBierka_zlr]);
     strcpy(NazwaRuchu2_zlr, notacja[KwadratNaKtoryRuszaSieBierka_zlr]);
     strcat(NazwaRuchu1_zlr, NazwaRuchu2_zlr);
-    printf("%s\n", NazwaRuchu1_zlr);
 
     ruchy * temp_zlr = NULL;
     ruchy * p_zlr = NULL;
@@ -172,7 +219,18 @@ void WypiszPlansze(szachownica *sz_wp){
         if(!(Pole % 16)){
             printf(" %d. ", 8 - ( Pole / 16 ));
         }
-        printf(" %s", ((Pole & 8) && (Pole +=7)) ? "\n" : Bierki[sz_wp->szachownica[Pole] & 15]);
+        
+            if(sz_wp->szachownica[Pole] == 0){
+                if(!(((Pole & 16) || (Pole & 1))&&((!(Pole & 16)) || (!(Pole & 1))))){
+                    printf(" %s", ((Pole & 8) && (Pole +=7)) ? "\n": Bierki[sz_wp->szachownica[Pole] & 15]);
+                }
+                else{
+                    printf(" %s", ((Pole & 8) && (Pole +=7)) ? "\n": Bierki[1]);
+                }
+            }
+            else{
+                printf(" %s", ((Pole & 8) && (Pole +=7)) ? "\n" : Bierki[sz_wp->szachownica[Pole] & 15]);
+            }
     }
     printf("\n     a b c d e f g h\n \n");
 }
@@ -287,11 +345,10 @@ ruchy * krol_kon(int Strona_kk, int KwadratZKtoregoRuszaSieBierka_kk, int Rodzaj
     return glowa_kk;
 }
 
-ruchy * MozliweRuchy(int GraczKtoregoJestRuch, ruchy * glowa_mr, szachownica *sz_mr){
+ruchy * MozliweRuchy(int GraczKtoregoJestRuch, szachownica *sz_mr){
+    ruchy *glowa_mr = NULL;
     int BierkaJakaZnajdujeSieNaPolu, RodzajPionkaBezWzgleduNaKolor, RuchWykonywanyPrzezPionek, KwadratNaKtoryRuszaSieBierka, Zbity_Kw, ZbitaBierka, Przejscie;
-
     printf("Mozliwe ruchy to:\n");
-        
     for(int KwadratZKtoregoRuszaPionek = 0; KwadratZKtoregoRuszaPionek < 128; KwadratZKtoregoRuszaPionek++){
         if(!(KwadratZKtoregoRuszaPionek & 0x88)){
             BierkaJakaZnajdujeSieNaPolu = sz_mr->szachownica[KwadratZKtoregoRuszaPionek];
@@ -300,6 +357,7 @@ ruchy * MozliweRuchy(int GraczKtoregoJestRuch, ruchy * glowa_mr, szachownica *sz
 
                 RodzajPionkaBezWzgleduNaKolor = BierkaJakaZnajdujeSieNaPolu & 7;
                 if(BierkaJakaZnajdujeSieNaPolu == 9){
+                    
                     glowa_mr = bialy_pionek(KwadratZKtoregoRuszaPionek, glowa_mr, sz_mr);
                 }
                 else if(BierkaJakaZnajdujeSieNaPolu ==18){
