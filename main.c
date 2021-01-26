@@ -12,15 +12,19 @@ int main(){
     int Strona_main = 8;
     int Ocena_main = 0;
     Ocena_main = OcenaGry(sz_main);
-    // int punktybierek_main;
-    // punktybierek_main = NegaMax(sz_main, 0, -2000, 2000, Strona_main);
-    // printf("%d", punktybierek_main);
     while(Ocena_main == 0){
-        WypiszPlansze(sz_main);
-        sz_main->glowaMozliwychRuchow = MozliweRuchy(sz_main->strona, sz_main);
-        printf("Jaki ruch wykonujesz?\n");
-        scanf("%s", ruch_main);
-        sz_main = WykonajRuch(sz_main->strona, ruch_main, sz_main);
+        //if(sz_main->strona == 8){
+            WypiszPlansze(sz_main);
+            printf("siema\n");
+            sz_main->glowaMozliwychRuchow = MozliweRuchy(sz_main);
+            printf("siema");
+            najlepszyRuch(sz_main, 6, -200, 200);
+            printf("Jaki ruch wykonujesz?\n");
+            scanf("%s", ruch_main);
+            sz_main = WykonajRuch(ruch_main, sz_main);
+        //}
+        // else{
+        // }
         
         Ocena_main = OcenaGry(sz_main);
     }

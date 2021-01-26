@@ -36,22 +36,61 @@ To do:
     2. en passant
     3. negamax
     4. (opcjonalnie) plansza ladna
+if g
 
-    // int NegaMax(szachownica *sz_nm, int glebokosc_nm, int alpha_nm, int beta_nm, int strona_nm){
-//     int maxEval, minEval, eval;
-//     int ocena_nm;
-//     ocena_nm = OcenaGry(sz_nm);
-//     if((glebokosc_nm == 0) || ocena_nm != 0){
-//         return ZliczanieBierkek(sz_nm);
-//     }
-//     if(strona_nm == 8){
-//         maxEval = -10000
-//         while()
-//     }
-//     else{
 
-//     }
-// }
+while(lista ruchow sie nie skonczyla){
+    policzewaluacje(szachownicapowykonanymruchu(nibyruch))
+    if policzewaluacje>dotychczasowawartoscmaksymalna{
+        policzewaluacje = dotychczasowawartoscmaksymalna
+    }
+}
+
+
+ szachownica * ZrobNibyRuch(szachownica *sz_znr, ruchy *nibyruch_znr){
+    sz_znr->szachownica[nibyruch_znr->KwadratDocelowy]=sz_znr->szachownica[nibyruch_znr->KwadratZrodlowy];
+    sz_znr->szachownica[nibyruch_znr->KwadratZrodlowy] = 0;
+    return sz_znr;
+ }
+
+int NegaMax(szachownica *sz_nm, int glebokosc_nm, int alpha_nm, int beta_nm){
+    
+    int maxEval, minEval, eval;
+    int ocena_nm;
+    int nowaocena_nm;
+    int ocenawezla_nm = -100;
+    
+    //zaalokowac pamiec tu trzeba
+    ocena_nm = OcenaGry(sz_nm);
+    if((glebokosc_nm == 0) || ocena_nm != 0){
+        return ZliczanieBierkek(sz_nm);
+    }
+    for(ruchy *MozliweRuchy_nm = MozliweRuchy(sz_nm->strona, sz_nm), *ptr_nm = MozliweRuchy_nm; MozliweRuchy_nm; MozliweRuchy_nm = MozliweRuchy_nm->next, free(ptr_nm), ptr_nm = MozliweRuchy_nm){
+        szachownica *Dziecko_nm;
+        szachownica *nadpisanieszachownicy_nm;
+        if(Dziecko_nm->strona == 8){
+            Dziecko_nm->strona = 16;
+        }
+        else{
+            Dziecko_nm->strona = 8;
+        }
+        Dziecko_nm = ZrobNibyRuch(sz_nm, MozliweRuchy_nm);
+        nowaocena_nm = -NegaMax(Dziecko_nm, glebokosc_nm -1, -beta_nm, -alpha_nm);
+
+        if(nowaocena_nm>ocenawezla_nm){
+            ocenawezla_nm = nowaocena_nm;
+        }
+
+        if(ocenawezla_nm > alpha_nm){
+            alpha_nm = ocenawezla_nm;
+        }
+
+        if(alpha_nm > beta_nm){
+            break;
+        }
+    }
+    return ocenawezla_nm;
+}
 
 // int negaMax(szachownica * sz_nm, int glebokosc_nm, int alfa_nm, int beta_nm)
 // {
