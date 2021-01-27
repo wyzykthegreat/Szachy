@@ -1,5 +1,4 @@
 #include "struktury.h"
-
 ruchy * bialy_pionek(int KwadratZKtoregoRuszaPionek_bp, ruchy *glowa_bp, szachownica *sz_bp){
     int Strona_bp, Kierunek_bp, KwadratNaKtoryRuszaPionek_bp, ZbitaBierka_bp;
     Strona_bp = 8;
@@ -8,12 +7,12 @@ ruchy * bialy_pionek(int KwadratZKtoregoRuszaPionek_bp, ruchy *glowa_bp, szachow
     KwadratNaKtoryRuszaPionek_bp = KwadratZKtoregoRuszaPionek_bp + ListaRuchow[Kierunek_bp];
     ZbitaBierka_bp = sz_bp->szachownica[KwadratNaKtoryRuszaPionek_bp];
     
-    if((ZbitaBierka_bp & 16) && (!(KwadratNaKtoryRuszaPionek_bp & 0x88))){
+    if(((ZbitaBierka_bp & 16) && (!(KwadratNaKtoryRuszaPionek_bp & 0x88)))||(sz_bp->enpassant == KwadratNaKtoryRuszaPionek_bp)){
         glowa_bp = ZrobListeRuchow(KwadratZKtoregoRuszaPionek_bp, KwadratNaKtoryRuszaPionek_bp, glowa_bp);
     }
     KwadratNaKtoryRuszaPionek_bp = KwadratNaKtoryRuszaPionek_bp -2;
     ZbitaBierka_bp = sz_bp->szachownica[KwadratNaKtoryRuszaPionek_bp];
-    if((ZbitaBierka_bp & 16) && (!(KwadratNaKtoryRuszaPionek_bp & 0x88))){
+    if(((ZbitaBierka_bp & 16) && (!(KwadratNaKtoryRuszaPionek_bp & 0x88)))||(sz_bp->enpassant == KwadratNaKtoryRuszaPionek_bp)){
         glowa_bp = ZrobListeRuchow(KwadratZKtoregoRuszaPionek_bp, KwadratNaKtoryRuszaPionek_bp, glowa_bp);
     }
     Kierunek_bp++;

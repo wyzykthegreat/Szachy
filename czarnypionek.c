@@ -8,14 +8,14 @@ ruchy * czarny_pionek(int KwadratZKtoregoRuszaPionek_cp, ruchy *glowa_cp, szacho
     KwadratNaKtoryRuszaPionek_cp = KwadratZKtoregoRuszaPionek_cp + ListaRuchow[Kierunek_cp];
     ZbitaBierka_cp = sz_cp->szachownica[KwadratNaKtoryRuszaPionek_cp];
     
-    if((ZbitaBierka_cp & 8) && (!(KwadratNaKtoryRuszaPionek_cp & 0x88))){
+    if(((ZbitaBierka_cp & 8) && (!(KwadratNaKtoryRuszaPionek_cp & 0x88)))||(sz_cp->enpassant == KwadratNaKtoryRuszaPionek_cp)){
         glowa_cp = ZrobListeRuchow(KwadratZKtoregoRuszaPionek_cp, KwadratNaKtoryRuszaPionek_cp, glowa_cp);
     }
 
     KwadratNaKtoryRuszaPionek_cp = KwadratNaKtoryRuszaPionek_cp +2;
     ZbitaBierka_cp = sz_cp->szachownica[KwadratNaKtoryRuszaPionek_cp];
 
-    if((ZbitaBierka_cp & 8) && (!(KwadratNaKtoryRuszaPionek_cp & 0x88))){
+    if(((ZbitaBierka_cp & 8) && (!(KwadratNaKtoryRuszaPionek_cp & 0x88)))||(sz_cp->enpassant == KwadratNaKtoryRuszaPionek_cp)){
         glowa_cp = ZrobListeRuchow(KwadratZKtoregoRuszaPionek_cp, KwadratNaKtoryRuszaPionek_cp, glowa_cp);
     }
 

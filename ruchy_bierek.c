@@ -90,9 +90,32 @@ szachownica * WykonajRuch(char *ruch_wr, szachownica *sz_wr){
 
     while(p_wr->next != NULL) {
         if((strcmp(p_wr->NazwaRuchu, ruch_wr) == 0)){
+            if(sz_wr->enpassant == p_wr->KwadratDocelowy){
+                if(sz_wr->szachownica[p_wr->KwadratZrodlowy] == 9){
+                    sz_wr->szachownica[p_wr->KwadratDocelowy +16] = 0;
+                }
+                
+                if(sz_wr->szachownica[p_wr->KwadratZrodlowy] == 18){
+                    sz_wr->szachownica[p_wr->KwadratDocelowy -16] = 0;
+                }
+            }
+            if(sz_wr->szachownica[p_wr->KwadratZrodlowy]==9){
+                if(p_wr->KwadratZrodlowy == p_wr->KwadratDocelowy + 32){
+                    sz_wr->enpassant = p_wr->KwadratDocelowy + 16;
+                }
+            }
+            else if(sz_wr->szachownica[p_wr->KwadratZrodlowy]==18){
+                if(p_wr->KwadratZrodlowy == p_wr->KwadratDocelowy - 32){
+                    sz_wr->enpassant = p_wr->KwadratDocelowy - 16;
+                }
+            }
+            else{
+                sz_wr->enpassant = -1;
+            }
             sz_wr->szachownica[p_wr->KwadratDocelowy]=sz_wr->szachownica[p_wr->KwadratZrodlowy];
             sz_wr->szachownica[p_wr->KwadratZrodlowy] = 0;
             CzyPoprawnieWpisanyRuch_wr = 0;
+            
             p_wr->next = NULL;
             break;
                 
@@ -101,6 +124,16 @@ szachownica * WykonajRuch(char *ruch_wr, szachownica *sz_wr){
     }
     if(CzyPoprawnieWpisanyRuch_wr == 1){
         if((strcmp(p_wr->NazwaRuchu, ruch_wr) == 0)){
+            if(sz_wr->szachownica[p_wr->KwadratZrodlowy]==9){
+                if(p_wr->KwadratZrodlowy == p_wr->KwadratDocelowy + 32){
+                    sz_wr->enpassant = p_wr->KwadratDocelowy + 16;
+                }
+            }
+            if(sz_wr->szachownica[p_wr->KwadratZrodlowy]==18){
+                if(p_wr->KwadratZrodlowy == p_wr->KwadratDocelowy - 32){
+                    sz_wr->enpassant = p_wr->KwadratDocelowy - 16;
+                }
+            }
             sz_wr->szachownica[p_wr->KwadratDocelowy]=sz_wr->szachownica[p_wr->KwadratZrodlowy];
             sz_wr->szachownica[p_wr->KwadratZrodlowy] = 0;
             CzyPoprawnieWpisanyRuch_wr = 0;

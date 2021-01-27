@@ -12,6 +12,7 @@ int main(){
     while(Ocena_main == 0){
             WypiszPlansze(sz_main);
             sz_main->glowaMozliwychRuchow = MozliweRuchy(sz_main);
+            printf("enpassant %s\n", notacja[sz_main->enpassant]);
             printf("Jaki ruch wykonujesz?\n");
             scanf("%s", ruch_main);
             sz_main = WykonajRuch(ruch_main, sz_main);

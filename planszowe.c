@@ -32,6 +32,7 @@ szachownica * UstawSzachownice(szachownica *sz_us){
     for(int i = 0; i<128; i++){
         sz_us->szachownica[i]=Plansza[i];
         sz_us->strona = 8;
+        sz_us->enpassant = -1;
     }
     return sz_us;
 }
