@@ -17,7 +17,7 @@ int main(){
             //WypiszListe(sz_main->glowaMozliwychRuchow);
             printf("Jaki ruch wykonujesz?\n");
             scanf("%s", ruch_main);
-            sz_main = WykonajRuch(ruch_main, sz_main);
+            sz_main = WykonajRuch(ruch_main, sz_main, sz_main->glowaMozliwychRuchow);
         }
         else{
             
@@ -26,7 +26,7 @@ int main(){
             sz_main->strona = 8;
 
         }
-        
+        printf("po bocie\n");
         Ocena_main = OcenaGry(sz_main);
     }
     free(sz_main);

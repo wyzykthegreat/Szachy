@@ -79,7 +79,7 @@ int PrzypiszBierke(int KwadratZKtoregoRuszaPionek, szachownica *sz_pb);
 
 szachownica * UstawSzachownice(szachownica *sz_us);
 szachownica * Ruch(szachownica *sz);
-szachownica * WykonajRuch(char *ruch_wr, szachownica *sz_wr);
+szachownica * WykonajRuch(char *ruch_wr, szachownica *sz_wr, ruchy *glowa_wr);
 szachownica * najlepszyRuch(szachownica *sz_nr, int glebokosc_nr, int alfa_nr, int beta_nr);
 
 ruchy * ZrobListeRuchow(int KwadratZKtoregoRuszaSieBierka_zlr, int KwadratNaKtoryRuszaSieBierka_zlr, ruchy *glowa_zlr);

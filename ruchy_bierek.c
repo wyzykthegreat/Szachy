@@ -83,9 +83,9 @@ void WypiszListe(ruchy *glowa_wl){
     } while(glowa_wl->next!=NULL);
 }
 
-szachownica * WykonajRuch(char *ruch_wr, szachownica *sz_wr){
+szachownica * WykonajRuch(char *ruch_wr, szachownica *sz_wr, ruchy *glowa_wr){
     ruchy *p_wr = (ruchy*)malloc(sizeof(ruchy));
-    p_wr = sz_wr->glowaMozliwychRuchow;
+    p_wr = glowa_wr;
     int CzyPoprawnieWpisanyRuch_wr = 1;
 
     do {
