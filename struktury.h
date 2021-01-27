@@ -21,7 +21,7 @@ static int Plansza[128] = {
     18, 18, 18, 18, 18, 18, 18, 18,     0, 0, 0, 0, 0, 0, 0, 0,
      0,  0,  0,  0,  0,  0,  0,  0,     0, 0, 0, 0, 0, 0, 0, 0,
      0,  0,  0,  0,  0,  0,  0,  0,     0, 0, 0, 0, 0, 0, 0, 0,
-     0,  0,  0,  0,  9,  0,  0,  0,     0, 0, 0, 0, 0, 0, 0, 0,
+     0,  0,  0,  0,  0,  0,  0,  0,     0, 0, 0, 0, 0, 0, 0, 0,
      0,  0,  0,  0,  0,  0,  0,  0,     0, 0, 0, 0, 0, 0, 0, 0,
      9,  9,  9,  9,  9,  9,  9,  9,     0, 0, 0, 0, 0, 0, 0, 0,
     14, 12, 13, 15, 11, 13, 12, 14,     0, 0, 0, 0, 0, 0, 0, 0,
@@ -61,8 +61,10 @@ typedef struct _szachownica{
     int szachownica[128];
     int strona;
     int enpassant;
-    int roszadaKingSide;
-    int roszadaQueenSide;
+    int roszadaCzarnyKingSide;
+    int roszadaCzarnyQueenSide;
+    int roszadaBialyKingSide;
+    int roszadaBialyQueenSide;
     
     ruchy *glowaMozliwychRuchow;
 } szachownica;
@@ -91,7 +93,9 @@ ruchy * czarny_pionek(int KwadratZKtoregoRuszaPionek_bp, ruchy *glowa_cp, szacho
 
 ruchy * hetman_goniec_wieza(int Strona_hgw, int KwadratZKtoregoRuszaSieBierka_hgw, int RodzajBierkiBezWzgleduNaKolor_hgw, ruchy *glowa_hgw, szachownica *sz_hgw);
 
-ruchy * krol_kon(int Strona_kk, int KwadratZKtoregoRuszaSieBierka_kk, int RodzajBierkiBezWzgleduNaKolor_kk, ruchy *glowa_kk, szachownica *sz_kk);
+ruchy * kon(int Strona_kk, int KwadratZKtoregoRuszaSieBierka_kk, int RodzajBierkiBezWzgleduNaKolor_kk, ruchy *glowa_kk, szachownica *sz_kk);
+
+ruchy * krol(int Strona_kk, int KwadratZKtoregoRuszaSieBierka_kk, int RodzajBierkiBezWzgleduNaKolor_kk, ruchy *glowa_kk, szachownica *sz_kk);
 
 ruchy * MozliweRuchy(szachownica *sz_mr);
 

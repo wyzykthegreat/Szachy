@@ -33,6 +33,10 @@ szachownica * UstawSzachownice(szachownica *sz_us){
         sz_us->szachownica[i]=Plansza[i];
         sz_us->strona = 8;
         sz_us->enpassant = -1;
+        sz_us->roszadaCzarnyKingSide = 1;
+        sz_us->roszadaCzarnyQueenSide = 1;
+        sz_us->roszadaBialyKingSide = 1;
+        sz_us->roszadaBialyQueenSide = 1;
     }
     return sz_us;
 }

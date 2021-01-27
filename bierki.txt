@@ -33,9 +33,8 @@ int Plansza[128] = {
 
 To do:
     1. Roszada
-    2. en passant
     3. negamax
-    4. (opcjonalnie) plansza ladna
+    4. (opcjonalnie) plansza ladna jest juz prawie ladna
 if g
 
 

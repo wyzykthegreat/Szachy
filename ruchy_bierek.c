@@ -112,6 +112,11 @@ szachownica * WykonajRuch(char *ruch_wr, szachownica *sz_wr){
             else{
                 sz_wr->enpassant = -1;
             }
+            if(((sz_wr->szachownica[p_wr->KwadratZrodlowy] & 7) == 6) && ((p_wr->KwadratZrodlowy == 112)||(p_wr->KwadratZrodlowy == 119))){
+                if((sz_wr->strona&8) && (sz_wr->szachownica[p_wr->KwadratZrodlowy] & 8)){
+                    printf("helo\n");
+                }
+            }
             sz_wr->szachownica[p_wr->KwadratDocelowy]=sz_wr->szachownica[p_wr->KwadratZrodlowy];
             sz_wr->szachownica[p_wr->KwadratZrodlowy] = 0;
             CzyPoprawnieWpisanyRuch_wr = 0;
@@ -220,13 +225,15 @@ ruchy * MozliweRuchy(szachownica *sz_mr){
                     glowa_mr = czarny_pionek(KwadratZKtoregoRuszaPionek, glowa_mr, sz_mr);
                 }
                 else if(RodzajPionkaBezWzgleduNaKolor == 3){
-                    glowa_mr = krol_kon(GraczKtoregoJestRuch, KwadratZKtoregoRuszaPionek, RodzajPionkaBezWzgleduNaKolor, glowa_mr, sz_mr);
-                    sz_mr->roszadaKingSide = 0;
-                    sz_mr->roszadaQueenSide = 0;
+                    glowa_mr = krol(GraczKtoregoJestRuch, KwadratZKtoregoRuszaPionek, RodzajPionkaBezWzgleduNaKolor, glowa_mr, sz_mr);
+                    sz_mr->roszadaCzarnyKingSide = 0;
+                    sz_mr->roszadaCzarnyQueenSide = 0;
+                    sz_mr->roszadaBialyKingSide = 0;
+                    sz_mr->roszadaBialyQueenSide = 0;
                 }
 
                 else if(RodzajPionkaBezWzgleduNaKolor == 4){
-                    glowa_mr = krol_kon(GraczKtoregoJestRuch, KwadratZKtoregoRuszaPionek, RodzajPionkaBezWzgleduNaKolor, glowa_mr, sz_mr);
+                    glowa_mr = kon(GraczKtoregoJestRuch, KwadratZKtoregoRuszaPionek, RodzajPionkaBezWzgleduNaKolor, glowa_mr, sz_mr);
                 }
                             
                 else if((RodzajPionkaBezWzgleduNaKolor >= 5) || (RodzajPionkaBezWzgleduNaKolor <= 7)){

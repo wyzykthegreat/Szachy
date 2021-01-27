@@ -1,16 +1,16 @@
 #include "struktury.h"
 
-ruchy * krol_kon(int Strona_kk, int KwadratZKtoregoRuszaSieBierka_kk, int RodzajBierkiBezWzgleduNaKolor_kk, ruchy * glowa_kk, szachownica *sz_kk){
+ruchy * kon(int Strona_ko, int KwadratZKtoregoRuszaSieBierka_ko, int RodzajBierkiBezWzgleduNaKolor_ko, ruchy * glowa_ko, szachownica *sz_ko){
     
-    int Kierunek_kk, KwadratNaKtoryRuszaSieBierka_kk, ZbitaBierka_kk;
+    int Kierunek_ko, KwadratNaKtoryRuszaSieBierka_ko, ZbitaBierka_ko;
     
-    Kierunek_kk = ListaRuchow[RodzajBierkiBezWzgleduNaKolor_kk+30];
+    Kierunek_ko = ListaRuchow[RodzajBierkiBezWzgleduNaKolor_ko+30];
     
-    while(ListaRuchow[++Kierunek_kk] !=0){
-        KwadratNaKtoryRuszaSieBierka_kk = KwadratZKtoregoRuszaSieBierka_kk + ListaRuchow[Kierunek_kk];
-        ZbitaBierka_kk = sz_kk->szachownica[KwadratNaKtoryRuszaSieBierka_kk];
-        if((!(ZbitaBierka_kk & Strona_kk)) && (!(KwadratNaKtoryRuszaSieBierka_kk & 0x88)))
-            glowa_kk = ZrobListeRuchow(KwadratZKtoregoRuszaSieBierka_kk, KwadratNaKtoryRuszaSieBierka_kk, glowa_kk);
+    while(ListaRuchow[++Kierunek_ko] !=0){
+        KwadratNaKtoryRuszaSieBierka_ko = KwadratZKtoregoRuszaSieBierka_ko + ListaRuchow[Kierunek_ko];
+        ZbitaBierka_ko = sz_ko->szachownica[KwadratNaKtoryRuszaSieBierka_ko];
+        if((!(ZbitaBierka_ko & Strona_ko)) && (!(KwadratNaKtoryRuszaSieBierka_ko & 0x88)))
+            glowa_ko = ZrobListeRuchow(KwadratZKtoregoRuszaSieBierka_ko, KwadratNaKtoryRuszaSieBierka_ko, glowa_ko);
     }
-    return glowa_kk;
+    return glowa_ko;
 }
