@@ -88,7 +88,7 @@ szachownica * WykonajRuch(char *ruch_wr, szachownica *sz_wr){
     p_wr = sz_wr->glowaMozliwychRuchow;
     int CzyPoprawnieWpisanyRuch_wr = 1;
 
-    while(p_wr->next != NULL) {
+    do {
         if((strcmp(p_wr->NazwaRuchu, ruch_wr) == 0)){
             if(sz_wr->enpassant == p_wr->KwadratDocelowy){
                 if(sz_wr->szachownica[p_wr->KwadratZrodlowy] == 9){
@@ -114,9 +114,52 @@ szachownica * WykonajRuch(char *ruch_wr, szachownica *sz_wr){
             }
             if(((sz_wr->szachownica[p_wr->KwadratZrodlowy] & 7) == 6) && ((p_wr->KwadratZrodlowy == 112)||(p_wr->KwadratZrodlowy == 119))){
                 if((sz_wr->strona&8) && (sz_wr->szachownica[p_wr->KwadratZrodlowy] & 8)){
-                    printf("helo\n");
+                    if(p_wr->KwadratZrodlowy == 112){
+                        sz_wr->roszadaBialyQueenSide = 0;
+                    }
+                    else if(p_wr->KwadratZrodlowy == 119){
+                        sz_wr->roszadaBialyKingSide = 0;
+                    }
                 }
             }
+            if(((sz_wr->szachownica[p_wr->KwadratZrodlowy] & 7) == 6) && ((p_wr->KwadratZrodlowy == 0)||(p_wr->KwadratZrodlowy == 7))){
+                if((sz_wr->strona & 16) && (sz_wr->szachownica[p_wr->KwadratZrodlowy] & 16)){
+                    if(p_wr->KwadratZrodlowy == 0){
+                        sz_wr->roszadaCzarnyQueenSide = 0;
+                    }
+                    else if(p_wr->KwadratZrodlowy == 7){
+                        sz_wr->roszadaCzarnyKingSide = 0;
+                    }
+                
+                }
+            }
+            if((sz_wr->szachownica[p_wr->KwadratZrodlowy] & 7) == 3){
+                if(p_wr->KwadratZrodlowy == 116){
+                    sz_wr->roszadaBialyKingSide = 0;
+                    sz_wr->roszadaBialyQueenSide = 0;
+                    if(p_wr->KwadratDocelowy == 114){
+                        sz_wr->szachownica[112]=0;
+                        sz_wr->szachownica[115]= 14;
+                    }
+                    else if(p_wr->KwadratDocelowy == 118){
+                        sz_wr->szachownica[119]=0;
+                        sz_wr->szachownica[117]= 14;
+                    }
+                }
+                else if(p_wr->KwadratZrodlowy == 4){
+                    sz_wr->roszadaCzarnyKingSide = 0;
+                    sz_wr->roszadaCzarnyQueenSide = 0;
+                    if(p_wr->KwadratDocelowy == 2){
+                        sz_wr->szachownica[0]=0;
+                        sz_wr->szachownica[3]= 22;
+                    }
+                    else if(p_wr->KwadratDocelowy == 6){
+                        sz_wr->szachownica[7]= 0;
+                        sz_wr->szachownica[5]= 22;
+                    }
+                }
+            } 
+
             sz_wr->szachownica[p_wr->KwadratDocelowy]=sz_wr->szachownica[p_wr->KwadratZrodlowy];
             sz_wr->szachownica[p_wr->KwadratZrodlowy] = 0;
             CzyPoprawnieWpisanyRuch_wr = 0;
@@ -124,29 +167,9 @@ szachownica * WykonajRuch(char *ruch_wr, szachownica *sz_wr){
             p_wr->next = NULL;
             break;
                 
-        }
+        } 
         p_wr = p_wr->next;
-    }
-    if(CzyPoprawnieWpisanyRuch_wr == 1){
-        if((strcmp(p_wr->NazwaRuchu, ruch_wr) == 0)){
-            if(sz_wr->szachownica[p_wr->KwadratZrodlowy]==9){
-                if(p_wr->KwadratZrodlowy == p_wr->KwadratDocelowy + 32){
-                    sz_wr->enpassant = p_wr->KwadratDocelowy + 16;
-                }
-            }
-            if(sz_wr->szachownica[p_wr->KwadratZrodlowy]==18){
-                if(p_wr->KwadratZrodlowy == p_wr->KwadratDocelowy - 32){
-                    sz_wr->enpassant = p_wr->KwadratDocelowy - 16;
-                }
-            }
-            sz_wr->szachownica[p_wr->KwadratDocelowy]=sz_wr->szachownica[p_wr->KwadratZrodlowy];
-            sz_wr->szachownica[p_wr->KwadratZrodlowy] = 0;
-            CzyPoprawnieWpisanyRuch_wr = 0;
-        }
-        else{
-            printf("zle wpisany ruch\n");
-        }
-    }
+    } while(p_wr->next != NULL);
     if(CzyPoprawnieWpisanyRuch_wr == 0){
         if(sz_wr->strona == 8){
             sz_wr->strona = 16;
@@ -155,7 +178,10 @@ szachownica * WykonajRuch(char *ruch_wr, szachownica *sz_wr){
             sz_wr->strona = 8;
         }
     }
-    //ZwolnijRuchy(p_wr);
+    else{
+        printf("zly kod\n");
+    }
+    //free(p_wr);
     return sz_wr;
 }
 
@@ -226,10 +252,6 @@ ruchy * MozliweRuchy(szachownica *sz_mr){
                 }
                 else if(RodzajPionkaBezWzgleduNaKolor == 3){
                     glowa_mr = krol(GraczKtoregoJestRuch, KwadratZKtoregoRuszaPionek, RodzajPionkaBezWzgleduNaKolor, glowa_mr, sz_mr);
-                    sz_mr->roszadaCzarnyKingSide = 0;
-                    sz_mr->roszadaCzarnyQueenSide = 0;
-                    sz_mr->roszadaBialyKingSide = 0;
-                    sz_mr->roszadaBialyQueenSide = 0;
                 }
 
                 else if(RodzajPionkaBezWzgleduNaKolor == 4){

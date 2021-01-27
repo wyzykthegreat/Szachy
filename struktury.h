@@ -19,7 +19,7 @@ static int Plansza[128] = {
 
     22, 20, 21, 23, 19, 21, 20, 22,     0, 0, 0, 0, 0, 0, 0, 0,
     18, 18, 18, 18, 18, 18, 18, 18,     0, 0, 0, 0, 0, 0, 0, 0,
-     0,  0,  0,  0,  0,  0,  0,  0,     0, 0, 0, 0, 0, 0, 0, 0,
+     0,  0,  0,  0,  0,  0,  18,  0,     0, 0, 0, 0, 0, 0, 0, 0,
      0,  0,  0,  0,  0,  0,  0,  0,     0, 0, 0, 0, 0, 0, 0, 0,
      0,  0,  0,  0,  0,  0,  0,  0,     0, 0, 0, 0, 0, 0, 0, 0,
      0,  0,  0,  0,  0,  0,  0,  0,     0, 0, 0, 0, 0, 0, 0, 0,
@@ -69,37 +69,28 @@ typedef struct _szachownica{
     ruchy *glowaMozliwychRuchow;
 } szachownica;
 
-int ZliczanieBierkek(szachownica *sz_zb);
-
-int negaMax(szachownica *sz_nm, int glebokosc_nm, int alpha_nm, int beta_nm);
-
-szachownica * UstawSzachownice(szachownica *sz_us);
-
-szachownica * WykonajRuch(char *ruch_wr, szachownica *sz_wr);
-
 void WypiszListe(ruchy *glowa_wl);
-
-ruchy * ZrobListeRuchow(int KwadratZKtoregoRuszaSieBierka_zlr, int KwadratNaKtoryRuszaSieBierka_zlr, ruchy *glowa_zlr);
-
-int OcenaGry();
-
 void WypiszPlansze(szachownica *sz_wp);
 
+int OcenaGry();
+int ZliczanieBierkek(szachownica *sz_zb);
+int negaMax(szachownica *sz_nm, int glebokosc_nm, int alpha_nm, int beta_nm);
 int PrzypiszBierke(int KwadratZKtoregoRuszaPionek, szachownica *sz_pb);
 
+szachownica * UstawSzachownice(szachownica *sz_us);
+szachownica * Ruch(szachownica *sz);
+szachownica * WykonajRuch(char *ruch_wr, szachownica *sz_wr);
+szachownica * najlepszyRuch(szachownica *sz_nr, int glebokosc_nr, int alfa_nr, int beta_nr);
+
+ruchy * ZrobListeRuchow(int KwadratZKtoregoRuszaSieBierka_zlr, int KwadratNaKtoryRuszaSieBierka_zlr, ruchy *glowa_zlr);
 ruchy * bialy_pionek(int KwadratZKtoregoRuszaPionek_bp, ruchy *glowa_bp, szachownica *sz_bp);
-
 ruchy * czarny_pionek(int KwadratZKtoregoRuszaPionek_bp, ruchy *glowa_cp, szachownica *sz_cp);
-
 ruchy * hetman_goniec_wieza(int Strona_hgw, int KwadratZKtoregoRuszaSieBierka_hgw, int RodzajBierkiBezWzgleduNaKolor_hgw, ruchy *glowa_hgw, szachownica *sz_hgw);
-
 ruchy * kon(int Strona_kk, int KwadratZKtoregoRuszaSieBierka_kk, int RodzajBierkiBezWzgleduNaKolor_kk, ruchy *glowa_kk, szachownica *sz_kk);
-
 ruchy * krol(int Strona_kk, int KwadratZKtoregoRuszaSieBierka_kk, int RodzajBierkiBezWzgleduNaKolor_kk, ruchy *glowa_kk, szachownica *sz_kk);
-
 ruchy * MozliweRuchy(szachownica *sz_mr);
 
-szachownica * najlepszyRuch(szachownica *sz_nr, int glebokosc_nr, int alfa_nr, int beta_nr);
+
 
 
 

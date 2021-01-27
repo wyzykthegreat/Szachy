@@ -18,6 +18,7 @@ ruchy * krol(int Strona_kr, int KwadratZKtoregoRuszaSieBierka_kr, int RodzajBier
         }
     }
     if((sz_kr->roszadaBialyQueenSide == 1) && (Strona_kr == 8)){
+            
         if((sz_kr->szachownica[115]*sz_kr->szachownica[114]*sz_kr->szachownica[113])== 0){
             glowa_kr = ZrobListeRuchow(116, 114, glowa_kr);
         }
