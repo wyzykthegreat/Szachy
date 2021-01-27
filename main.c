@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include "ruchy_bierek.h"
+#include "struktury.h"
 
 
 int main(){
@@ -13,18 +10,11 @@ int main(){
     int Ocena_main = 0;
     Ocena_main = OcenaGry(sz_main);
     while(Ocena_main == 0){
-        //if(sz_main->strona == 8){
             WypiszPlansze(sz_main);
-            printf("siema\n");
             sz_main->glowaMozliwychRuchow = MozliweRuchy(sz_main);
-            printf("siema");
-            najlepszyRuch(sz_main, 6, -200, 200);
             printf("Jaki ruch wykonujesz?\n");
             scanf("%s", ruch_main);
             sz_main = WykonajRuch(ruch_main, sz_main);
-        //}
-        // else{
-        // }
         
         Ocena_main = OcenaGry(sz_main);
     }

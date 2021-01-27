@@ -1,6 +1,10 @@
 #ifndef _STRUKTURY_H
 #define _STRUKTURY_H
 
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+
 static int ListaRuchow[] = {
 
        15,  16,  32,   0,                           // operacje wykorzystywane do ruchu bialych pionkow
@@ -11,7 +15,7 @@ static int ListaRuchow[] = {
         -1,  3,  12,  21,  16,   7, 12              //opisane kolejno poczatki mozliwych ruchow do wykonania przez poszczegolne figury
     };
 
-int Plansza[128] = {                
+static int Plansza[128] = {                
 
     22, 20, 21, 23, 19, 21, 20, 22,     0, 0, 0, 0, 0, 0, 0, 0,
     18, 18, 18, 18, 18, 18, 18, 18,     0, 0, 0, 0, 0, 0, 0, 0,
@@ -24,7 +28,7 @@ int Plansza[128] = {
 
 };
 
-char *notacja[] = {
+static char *notacja[] = {
 
     "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8",     "i8","j8","k8","l8","m8","n8","o8", "p8",
     "a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7",     "i7","j7","k7","l7","m7","n7","o7", "p7",
@@ -39,12 +43,57 @@ char *notacja[] = {
 
 // enum { bialy = 8, czarny = 16};
 
-char *Bierki[] = {
+static char *Bierki[] = {
 
 	".", "\u2588", "\u265F", "\u265A", "\u265E", "\u265D", "\u265C", "\u265B", 
 	"-", "\u2659", "-", "\u2654", "\u2658", "\u2657", "\u2656", "\u2655",  
 
 };
+
+typedef struct _ruchy{
+    int KwadratZrodlowy;
+    int KwadratDocelowy;
+    char NazwaRuchu[5];
+    struct _ruchy *next;
+} ruchy;
+
+typedef struct _szachownica{
+    int szachownica[128];
+    int strona;
+    int enpassant;
+    ruchy *glowaMozliwychRuchow;
+} szachownica;
+
+int ZliczanieBierkek(szachownica *sz_zb);
+
+int negaMax(szachownica *sz_nm, int glebokosc_nm, int alpha_nm, int beta_nm);
+
+szachownica * UstawSzachownice(szachownica *sz_us);
+
+szachownica * WykonajRuch(char *ruch_wr, szachownica *sz_wr);
+
+void WypiszListe(ruchy *glowa_wl);
+
+ruchy * ZrobListeRuchow(int KwadratZKtoregoRuszaSieBierka_zlr, int KwadratNaKtoryRuszaSieBierka_zlr, ruchy *glowa_zlr);
+
+int OcenaGry();
+
+void WypiszPlansze(szachownica *sz_wp);
+
+int PrzypiszBierke(int KwadratZKtoregoRuszaPionek, szachownica *sz_pb);
+
+ruchy * bialy_pionek(int KwadratZKtoregoRuszaPionek_bp, ruchy *glowa_bp, szachownica *sz_bp);
+
+ruchy * czarny_pionek(int KwadratZKtoregoRuszaPionek_bp, ruchy *glowa_cp, szachownica *sz_cp);
+
+ruchy * hetman_goniec_wieza(int Strona_hgw, int KwadratZKtoregoRuszaSieBierka_hgw, int RodzajBierkiBezWzgleduNaKolor_hgw, ruchy *glowa_hgw, szachownica *sz_hgw);
+
+ruchy * krol_kon(int Strona_kk, int KwadratZKtoregoRuszaSieBierka_kk, int RodzajBierkiBezWzgleduNaKolor_kk, ruchy *glowa_kk, szachownica *sz_kk);
+
+ruchy * MozliweRuchy(szachownica *sz_mr);
+
+szachownica * najlepszyRuch(szachownica *sz_nr, int glebokosc_nr, int alfa_nr, int beta_nr);
+
 
 
 
