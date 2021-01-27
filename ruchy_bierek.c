@@ -219,7 +219,13 @@ ruchy * MozliweRuchy(szachownica *sz_mr){
                 else if(BierkaJakaZnajdujeSieNaPolu ==18){
                     glowa_mr = czarny_pionek(KwadratZKtoregoRuszaPionek, glowa_mr, sz_mr);
                 }
-                else if((RodzajPionkaBezWzgleduNaKolor == 3) || (RodzajPionkaBezWzgleduNaKolor == 4)){
+                else if(RodzajPionkaBezWzgleduNaKolor == 3){
+                    glowa_mr = krol_kon(GraczKtoregoJestRuch, KwadratZKtoregoRuszaPionek, RodzajPionkaBezWzgleduNaKolor, glowa_mr, sz_mr);
+                    sz_mr->roszadaKingSide = 0;
+                    sz_mr->roszadaQueenSide = 0;
+                }
+
+                else if(RodzajPionkaBezWzgleduNaKolor == 4){
                     glowa_mr = krol_kon(GraczKtoregoJestRuch, KwadratZKtoregoRuszaPionek, RodzajPionkaBezWzgleduNaKolor, glowa_mr, sz_mr);
                 }
                             

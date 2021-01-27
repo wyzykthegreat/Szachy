@@ -61,6 +61,8 @@ typedef struct _szachownica{
     int szachownica[128];
     int strona;
     int enpassant;
+    int roszadaKingSide;
+    int roszadaQueenSide;
     
     ruchy *glowaMozliwychRuchow;
 } szachownica;
