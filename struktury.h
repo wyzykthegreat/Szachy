@@ -41,8 +41,6 @@ static char *notacja[] = {
 
 };
 
-// enum { bialy = 8, czarny = 16};
-
 static char *Bierki[] = {
 
 	".", "\u2588", "\u265F", "\u265A", "\u265E", "\u265D", "\u265C", "\u265B", 

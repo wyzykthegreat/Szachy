@@ -21,7 +21,8 @@ Instrukcja jak zagrac:
     w przeciwnym razie zapetla sie jeszcze raz kazac wpisac poprawny ruch.
 
     Bot na ta chwile nie dziala, ma problem z dobrym symulowaniem ustawienia szachownicy,
-    algorytmy (negaMax) sterujace botem sa na pewno dobrze napisane.
+    algorytmy (negaMax) sterujace botem sa na pewno dobrze napisane. Aby zobaczyc dzialanie bota
+    nalezy odkomentowac
 
     Szachownica jest przechowywana na tablicy jednowymiarowej.
     Podczas programowania zapoznalismy sie z logika bitwise ktora umozliwila przechowywanie ogromnej
