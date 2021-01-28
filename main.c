@@ -56,7 +56,7 @@ int main(){
     char ruch_main[5];
     char info_main[2];
     char info2_main[2];
-    int StronaGracza_main;
+    int StronaGracza_main = 0;
 
     printf("Czy chcesz grać z drugim graczem? Y/N\n");
     scanf("%c", info_main);
@@ -75,25 +75,31 @@ int main(){
     Ocena_main = OcenaGry(sz_main);
     WypiszPlansze(sz_main);
     while(Ocena_main == 0){
-        //if(sz_main->strona == StronaGracza_main){
+        if(StronaGracza_main == 0){
             sz_main->glowaMozliwychRuchow = MozliweRuchy(sz_main);
-            //WypiszListe(sz_main->glowaMozliwychRuchow);
-            printf("%d  %d\n", sz_main->szachownica[117], sz_main->szachownica[118]);
             printf("Jaki ruch wykonujesz?\n Napisz \"list\" aby wypisac liste dostepnych ruchow.\n");
             scanf("%s", ruch_main);
             sz_main = WykonajRuch(ruch_main, sz_main, sz_main->glowaMozliwychRuchow);
             WypiszPlansze(sz_main);
-        // }
-        // else{
+        }
+        else if(sz_main->strona == StronaGracza_main){
+            sz_main->glowaMozliwychRuchow = MozliweRuchy(sz_main);
+            printf("Jaki ruch wykonujesz?\n Napisz \"list\" aby wypisac liste dostepnych ruchow.\n");
+            scanf("%s", ruch_main);
+            sz_main = WykonajRuch(ruch_main, sz_main, sz_main->glowaMozliwychRuchow);
+            WypiszPlansze(sz_main);
+        }
+        else {
             
-        //     WypiszPlansze(sz_main);
-        //     sz_main = najlepszyRuch(sz_main, 6, -200, 200);
-        //     sz_main->strona = 16;
+            WypiszPlansze(sz_main);
+            sz_main = najlepszyRuch(sz_main, 6, -200, 200);
+            sz_main->strona = 16;
 
-        // }
+        }
         
         Ocena_main = OcenaGry(sz_main);
     }
+    
     free(sz_main);
     free(glowa_main);
     
