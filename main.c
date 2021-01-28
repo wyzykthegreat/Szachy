@@ -10,23 +10,24 @@ int main(){
     int Ocena_main = 0;
     Ocena_main = OcenaGry(sz_main);
     while(Ocena_main == 0){
-        if(sz_main->strona == 16){
+        //if(sz_main->strona == 16){
             WypiszPlansze(sz_main);
             
             sz_main->glowaMozliwychRuchow = MozliweRuchy(sz_main);
-            //WypiszListe(sz_main->glowaMozliwychRuchow);
+            WypiszListe(sz_main->glowaMozliwychRuchow);
+            printf("%d  %d\n", sz_main->szachownica[117], sz_main->szachownica[118]);
             printf("Jaki ruch wykonujesz?\n");
             scanf("%s", ruch_main);
             sz_main = WykonajRuch(ruch_main, sz_main, sz_main->glowaMozliwychRuchow);
-        }
-        else{
+        // }
+        // else{
             
-            WypiszPlansze(sz_main);
-            sz_main = najlepszyRuch(sz_main, 2, -200, 200);
-            sz_main->strona = 8;
+        //     WypiszPlansze(sz_main);
+        //     sz_main = najlepszyRuch(sz_main, 6, -200, 200);
+        //     sz_main->strona = 16;
 
-        }
-        printf("po bocie\n");
+        // }
+        
         Ocena_main = OcenaGry(sz_main);
     }
     free(sz_main);
