@@ -6,5 +6,5 @@ szachy: $(DEPS)
 clean:
 	rm -f szachy	
 
-test:
+graj:
 	./szachy	

@@ -88,8 +88,11 @@ szachownica * WykonajRuch(char *ruch_wr, szachownica *sz_wr, ruchy *glowa_wr){
     ruchy *p_wr = (ruchy*)malloc(sizeof(ruchy));
     p_wr = glowa_wr;
     int CzyPoprawnieWpisanyRuch_wr = 1;
-
-    do {
+    if(strcmp("list", ruch_wr) == 0){
+        WypiszListe(p_wr);
+    }
+    else{
+        do {
         if((strcmp(p_wr->NazwaRuchu, ruch_wr) == 0)){
             if(sz_wr->enpassant == p_wr->KwadratDocelowy){
                 if(sz_wr->szachownica[p_wr->KwadratZrodlowy] == 9){
@@ -249,6 +252,7 @@ szachownica * WykonajRuch(char *ruch_wr, szachownica *sz_wr, ruchy *glowa_wr){
 
         }
     }
+    }
 
 
 
@@ -262,9 +266,6 @@ szachownica * WykonajRuch(char *ruch_wr, szachownica *sz_wr, ruchy *glowa_wr){
         else{
             sz_wr->strona = 8;
         }
-    }
-    else{
-        printf("zly wprowadzony kod\n");
     }
     //free(p_wr);
     return sz_wr;
